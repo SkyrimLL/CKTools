@@ -1,23 +1,10 @@
-# Copyright (C) 2013 Simon Knapp
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the any terms you wish.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# This script will copy files from a source directory (skyrim/Data folder) to two target directories: one for backups and preparing BSA files and one for source control (github)
 
-# To run this, type:
-#
-# python move_files.py <move|copy> <input directory> <output directory> [regexp]
-#
-# at a command prompt. If the first argument is move, then files will be moved
-# otherwise files will be copied. It doesn't matter what directory structure
-# is found under the input directory, the entire directory tree is walked and
-# every file in every sub-directory will be checked.
-#
-# If no regular expression (4th argument) is provided, the one shown is used, but note that
-# the named parameters must be suitable for the constructor of File.
+# QUICK REFERENCES to Python resources
+# https://gist.github.com/Sleepingwell/6070119
+# https://docs.python.org/2/library/shutil.html
+# https://www.pythonforbeginners.com/os/python-the-shutil-module
+# http://xahlee.info/python/python_path_manipulation.html
 
 import re
 import os 
@@ -164,21 +151,6 @@ def deploySLDialogues():
 
 
 if __name__ == '__main__':
-    # REFERENCES
-    # https://gist.github.com/Sleepingwell/6070119
-    # https://docs.python.org/2/library/shutil.html
-    # https://www.pythonforbeginners.com/os/python-the-shutil-module
-    # http://xahlee.info/python/python_path_manipulation.html
-
-    # ===== TO DO
-    # Set up github repo for script + issues
-    # Separate base paths from mod paths
-    # Move mod assets to a double array / loop through array in 'deployfiles'
-    #   Look into how to use double arrays in Python
-    # Add support for config files for base paths and mods assets
-    #   Look into how to include files in Python
-    # Get list of issues for a defined milestone to generate release notes
-    #   Look into how to connect to github API in Python
 
     # ===== CK Tools
     deployCKTools()
