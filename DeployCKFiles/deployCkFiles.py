@@ -98,11 +98,17 @@ def deploySD():
     modassets["Interface\\_SD_\\"] = ['sanguine_rose.*']
     modassets["Interface\\Translations\\"] = ['sanguinesDebauchery*.*']
     modassets["meshes\\_sd_\\"] = ['_sd*.*', '*.*']
-    modassets["meshes\\actors\\atronachflame\\"] = ['*.*']
-    modassets["meshes\\actors\\canine\\"] = ['*.*']
-    modassets["meshes\\actors\\chaurus\\"] = ['*.*']
-    modassets["meshes\\actors\\falmer\\"] = ['*.*']
-    modassets["meshes\\actors\\spriggan\\"] = ['*.*']
+    modassets["meshes\\actors\\atronachflame\\"] = ['testfireatronach.nif']
+    modassets["meshes\\actors\\atronachflame\\character assets\\"] = ['*.*']
+    modassets["meshes\\actors\\canine\\"] = ['compressleveloverride.txt', 'dogstatic.nif', 'nocompressionoverride.txt', 'spublocksize.txt']
+    modassets["meshes\\actors\\canine\\character assets dog\\"] = ['*.*']
+    modassets["meshes\\actors\\canine\\character assets wolf\\"] = ['*.*']
+    modassets["meshes\\actors\\chaurus\\"] = ['testchaurus.nif']
+    modassets["meshes\\actors\\chaurus\\character assets\\"] = ['*.*']
+    modassets["meshes\\actors\\falmer\\"] = ['falmerarmorstatic.nif', 'falmerstatic.nif']
+    modassets["meshes\\actors\\falmer\\character assets\\"] = ['*.*']
+    modassets["meshes\\actors\\spriggan\\"] = ['fxsprigganattachments.nif', 'fxsprigganattachmentsmatron.nif', 'fxsprigganswarm.nif', 'sprigganfxtestunified.nif']
+    modassets["meshes\\actors\\spriggan\\character assets\\"] = ['*.*']
     modassets["meshes\\actors\\character\\animations\\sanguinesDebauchery\\"] = ['*.*']
     modassets["meshes\\actors\\character\\animations\\"] = ['idlehandsbehindback.hkx']
     modassets["meshes\\actors\\character\\behaviors\\"] = ['FNIS_sanguinesDebauchery_Behavior.hkx']
@@ -172,13 +178,13 @@ if __name__ == '__main__':
     # Add support for config files for base paths and mods assets
     #   Look into how to include files in Python
     # Get list of issues for a defined milestone to generate release notes
-    #   Look into hot to connect to github API in Python
+    #   Look into how to connect to github API in Python
 
     # ===== CK Tools
     deployCKTools()
 
     # ===== Sanguine Debauchery +
     deploySD()
-    
+
     # ===== SL Dialogues
     deploySLDialogues()
