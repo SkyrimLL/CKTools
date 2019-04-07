@@ -3,6 +3,10 @@
 # QUICK REFERENCES to Python resources
 # https://pygithub.readthedocs.io/en/latest/introduction.html
 # https://pygithub.readthedocs.io/en/latest/reference.html
+# https://hackernoon.com/4-ways-to-manage-the-configuration-in-python-4623049e841b
+
+# REQUIREMENTS
+# This script requires the PyGithub library in your python environment - https://pygithub.readthedocs.io/en/latest/index.html
 
 # config.json includes this content (with your own access token)
 #
@@ -12,7 +16,15 @@
 
 import json
 
-def githubRelease(githubapi, githubaccount, githubrepo, githubmilestone):
+def trymakedir(path):
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        # print(e)
+        if not os.path.exists(path):
+            raise Exception('failed to create output directory: ' + path)
+
+def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubfolder):
     repo = githubapi.get_repo(githubaccount + '/' + githubrepo)
     closed_issues = repo.get_issues(state='closed')
     enhancementlist = ""
@@ -28,21 +40,33 @@ def githubRelease(githubapi, githubaccount, githubrepo, githubmilestone):
                         enhancementlist = enhancementlist + "- " + issue.title + "\n"
                     elif label.name == 'bug':
                         bugslist = bugslist + "- " + issue.title + "\n"
-    print ("### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1)")
-    print ("** Enhancements: ** \n" + enhancementlist)
-    print ("** Bugs: ** \n" + bugslist)
+    releasenotes = ""
+    releasenotes = releasenotes + "### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1)"
+    releasenotes = releasenotes + "** Enhancements: ** \n" + enhancementlist
+    releasenotes = releasenotes + "** Bugs: ** \n" + bugslist
+    targetdir = githubfolder + "\\Releases"
+    trymakedir(targetdir)
+    file = open(“targetdir\\” + githubmilestone + ".md", ”w”)
+    file.write(releasenotes)
+    file.close()
+
 
 def githubReleaseCKTools(githubapi):
     print("========= CKTools")
-    githubRelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2019')
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
+    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2019',githubfolder)
+
 
 def githubReleaseSD(githubapi):
     print("========= Sanguine Debauchery")
-    githubRelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019')
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019',githubfolder)
+
 
 def githubReleaseSLDialogues(githubapi):
     print("========= SL Dialogues")
-    githubRelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019')
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019',githubfolder)
 
 
 if __name__ == '__main__':
@@ -51,13 +75,13 @@ if __name__ == '__main__':
     with open('config.json', 'r') as f:
         config = json.load(f)
 
-    githubapi = Github(base_url="https://api.github.com", login_or_token=config['ACCESS_KEY'])
+    g = Github(base_url="https://api.github.com", login_or_token=config['ACCESS_KEY'])
 
     # ===== CK Tools
-    githubReleaseCKTools(githubapi)
+    githubReleaseCKTools(g)
 
     # ===== Sanguine Debauchery +
-    githubReleaseSD(githubapi)
+    githubReleaseSD(g)
 
     # ===== SL Dialogues
-    githubReleaseSLDialogues(githubapi)
+    githubReleaseSLDialogues(g)

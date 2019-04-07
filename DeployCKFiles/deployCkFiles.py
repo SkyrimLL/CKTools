@@ -63,23 +63,23 @@ def deployfiles(sourcelist, destinationlist, modassetslist):
 
 def deployCKTools():
     print("========= CKTools")
-    SourceF = "E:\\Documents\\Source\\CKTools\\"
+    sourcefolder = "E:\\Documents\\Source\\CKTools\\"
 
-    TargetF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\CKTools\\"
-    GitHubF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\CKTools\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
 
     modassets = {}
     modassets["DeployCKFiles\\"] = ['deployCkFiles.py']
     modassets["GetGithubReleases\\"] = ['getGithubReleases.py']
 
-    deployfiles([SourceF], [TargetF, GitHubF], modassets)
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 def deploySD():
     print("========= Sanguine Debauchery")
-    SourceF = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
 
-    TargetF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\Loose\\Data\\"
-    GitHubF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
 
     modassets = {}
     modassets["scripts\\"] = ['_sd*.*', '_SD*.*']
@@ -105,10 +105,10 @@ def deploySD():
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['0003DC4A.NIF', '0003DC4E.NIF', '0003DC50.NIF','0003DC52.NIF']
     modassets[""] = ['sanguinesDebauchery.esp']
 
-    deployfiles([SourceF], [TargetF, GitHubF], modassets)
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
-    TargetF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SDResources\\Data\\"
-    GitHubF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SDResources\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
 
     modassets = {}
     modassets["textures\\_sd_\\"] = ['*.*']
@@ -123,15 +123,15 @@ def deploySD():
     modassets["textures\\ZaZ\\Gagz\\"] = ['*.*']
     modassets["textures\\ZaZ\\Restraints\\"] = ['*.*']
 
-    deployfiles([SourceF], [TargetF, GitHubF], modassets)
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
 def deploySLDialogues():
     print("========= SL Dialogues")
-    SourceF = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
 
-    TargetF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Dialogues\\Dev\\BSA\\Data\\"
-    GitHubF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Dialogues\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\Data\\"
 
     modassets = {}
     modassets["scripts\\"] = ['SLD_*.*', 'SLD_*.*']
@@ -139,17 +139,17 @@ def deploySLDialogues():
     modassets["meshes\\clutter\\SL_Dialogues\\"] = ['*.*']
     modassets["textures\\clutter\\SL_Dialogues\\"] = ['*.*']
 
-    deployfiles([SourceF], [TargetF, GitHubF], modassets)
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
-    TargetF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Dialogues\\Dev\\Loose\\Data\\"
-    GitHubF = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Dialogues\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\Data\\"
 
     modassets = {}
     modassets["SEQ\\"] = ['SexLab_Dialogues.seq']
     modassets["Interface\\SexLab_Dialogues\\"] = ['*.*']
     modassets[""] = ['SexLab_Dialogues.esp']
 
-    deployfiles([SourceF], [TargetF, GitHubF], modassets)
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
 if __name__ == '__main__':
