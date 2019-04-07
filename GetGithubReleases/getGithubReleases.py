@@ -47,19 +47,16 @@ def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubf
     if milestonenumber != 0:
         releasenotes = ""
         releasenotes = releasenotes + "### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1) \n"
-        releasenotes = releasenotes + "** Enhancements: ** \n" + enhancementlist
-        releasenotes = releasenotes + "** Bugs: ** \n" + bugslist
-    else:
-        releasenotes = ""
-        releasenotes = releasenotes + "### RELEASE NOTES for milestone " + githubmilestone + "\n"
+        releasenotes = releasenotes + "**Enhancements:** \n" + enhancementlist + "\n"
+        releasenotes = releasenotes + "**Bugs:** \n" + bugslist + "\n"
 
-    targetfolder = githubfolder + "Releases"
-    targetfile = targetfolder + "\\" + githubmilestone + '.md'
-    trymakedir(targetfolder)
-    file = open(targetfile,'w')
-    file.write(releasenotes)
-    file.close()
-    print(targetfile)
+        targetfolder = githubfolder + "Releases"
+        targetfile = targetfolder + "\\" + githubmilestone + '.md'
+        trymakedir(targetfolder)
+        file = open(targetfile,'w')
+        file.write(releasenotes)
+        file.close()
+        print(targetfile)
 
 
 def githubReleaseCKTools(githubapi):
@@ -94,7 +91,7 @@ if __name__ == '__main__':
     githubReleaseCKTools(g)
 
     # ===== Sanguine Debauchery +
-    githubReleaseSD(g)
+    # githubReleaseSD(g)
 
     # ===== SL Dialogues
-    githubReleaseSLDialogues(g)
+    # githubReleaseSLDialogues(g)
