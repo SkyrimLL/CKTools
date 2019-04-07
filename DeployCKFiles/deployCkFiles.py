@@ -1,7 +1,8 @@
 # This script will copy files from a source directory (skyrim/Data folder) to two target directories: one for backups and preparing BSA files and one for source control (github)
 
+# Code adapted from: https://gist.github.com/Sleepingwell/6070119
+
 # QUICK REFERENCES to Python resources
-# https://gist.github.com/Sleepingwell/6070119
 # https://docs.python.org/2/library/shutil.html
 # https://www.pythonforbeginners.com/os/python-the-shutil-module
 # http://xahlee.info/python/python_path_manipulation.html
@@ -69,6 +70,7 @@ def deployCKTools():
 
     modassets = {}
     modassets["DeployCKFiles\\"] = ['deployCkFiles.py']
+    modassets["GetGithubReleases\\"] = ['getGithubReleases.py']
 
     deployfiles([SourceF], [TargetF, GitHubF], modassets)
 
