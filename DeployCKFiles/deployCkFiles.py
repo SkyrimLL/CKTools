@@ -58,6 +58,7 @@ def deployfiles(sourcelist, destinationlist, modassetslist):
         for source in sourcelist:
             for destination in destinationlist:
                 for filepattern in filepatternlist:
+                    trymakedir(destination)
                     docopy(source + asset, destination + asset, filepattern)
                     print("----")
 

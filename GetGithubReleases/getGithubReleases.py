@@ -15,6 +15,7 @@
 # }
 
 import json
+import os
 
 def trymakedir(path):
     try:
@@ -29,26 +30,36 @@ def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubf
     closed_issues = repo.get_issues(state='closed')
     enhancementlist = ""
     bugslist = ""
+    milestonenumber = 0
     for issue in closed_issues:
         milestone = issue.milestone
         # if milestone.title == 'SD 2019':
         if milestone is not None:
             if milestone.title == githubmilestone:
                 milestonenumber = milestone.number
+                issuenumber = issue.number
                 for label in issue.labels:
+                    issuelink = "- [" + issue.title + "](https://github.com/" + githubaccount + "/" + githubrepo + "/issues/" + str(issuenumber) + ")\n"
                     if label.name == 'enhancement':
-                        enhancementlist = enhancementlist + "- " + issue.title + "\n"
+                        enhancementlist = enhancementlist + issuelink
                     elif label.name == 'bug':
-                        bugslist = bugslist + "- " + issue.title + "\n"
-    releasenotes = ""
-    releasenotes = releasenotes + "### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1)"
-    releasenotes = releasenotes + "** Enhancements: ** \n" + enhancementlist
-    releasenotes = releasenotes + "** Bugs: ** \n" + bugslist
-    targetdir = githubfolder + "\\Releases"
-    trymakedir(targetdir)
-    file = open(“targetdir\\” + githubmilestone + ".md", ”w”)
+                        bugslist = bugslist + issuelink
+    if milestonenumber != 0:
+        releasenotes = ""
+        releasenotes = releasenotes + "### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1) \n"
+        releasenotes = releasenotes + "** Enhancements: ** \n" + enhancementlist
+        releasenotes = releasenotes + "** Bugs: ** \n" + bugslist
+    else:
+        releasenotes = ""
+        releasenotes = releasenotes + "### RELEASE NOTES for milestone " + githubmilestone + "\n"
+
+    targetfolder = githubfolder + "Releases"
+    targetfile = targetfolder + "\\" + githubmilestone + '.md'
+    trymakedir(targetfolder)
+    file = open(targetfile,'w')
     file.write(releasenotes)
     file.close()
+    print(targetfile)
 
 
 def githubReleaseCKTools(githubapi):
@@ -61,12 +72,14 @@ def githubReleaseSD(githubapi):
     print("========= Sanguine Debauchery")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\"
     githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019-04-07',githubfolder)
 
 
 def githubReleaseSLDialogues(githubapi):
     print("========= SL Dialogues")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\"
     githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019-04-07',githubfolder)
 
 
 if __name__ == '__main__':
