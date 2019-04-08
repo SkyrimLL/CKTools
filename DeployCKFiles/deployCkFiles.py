@@ -16,6 +16,7 @@ import fnmatch
 def join(*args):
     return os.path.normpath(os.path.join(*args))
 
+
 def trymakedir(path):
     try:
         os.makedirs(path)
@@ -26,9 +27,7 @@ def trymakedir(path):
 
 
 def docopy(inputdir, outputdir, pattern):
-    print("Processing... " + pattern)
-    # print(" From: " + inputdir)
-    print(" To: " + outputdir)
+    print("Processing... " + pattern + " To: " + outputdir)
     regexpattern = fnmatch.translate(pattern)
     prog = re.compile(regexpattern)
     # print("     Mover: " + mover)
@@ -52,6 +51,7 @@ def docopy(inputdir, outputdir, pattern):
             print("     " + root)
             print("     ... " + str(filecount) + " files")
 
+
 def deployfiles(sourcelist, destinationlist, modassetslist):
     for asset in modassetslist.keys():
         filepatternlist = modassetslist[asset]
@@ -62,10 +62,10 @@ def deployfiles(sourcelist, destinationlist, modassetslist):
                     docopy(source + asset, destination + asset, filepattern)
                     print("----")
 
+
 def deployCKTools():
     print("========= CKTools")
     sourcefolder = "E:\\Documents\\Source\\CKTools\\"
-
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\CKTools\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
 
@@ -74,6 +74,7 @@ def deployCKTools():
     modassets["GetGithubReleases\\"] = ['getGithubReleases.py']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
 
 def deploySD():
     print("========= Sanguine Debauchery")
@@ -127,7 +128,7 @@ def deploySD():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
-def deploySLDialogues():
+def deploySLD():
     print("========= SL Dialogues")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
 
@@ -153,6 +154,39 @@ def deploySLDialogues():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
+def deploySLSD():
+    print("========= Sisterhood of Dibella")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SL_Dibella*.*']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_DibellaCult.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['0001E82C.NIF', '0001E765.NIF', '000133A5.NIF', '000133B0.NIF', '000133B7.NIF', '0001335F.NIF', '00013386.NIF']
+    modassets["meshes\\armor\\SL_Dibella\\"] = ['*.*']
+    modassets["meshes\\clutter\\SL_Dibella\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab_DibellaCult.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\Skyrim.esm\\"] = ['0001E82C.*', '0001E765.*', '000133A5.*', '000133B0.*', '000133B7.*', '0001335F.*', '00013386.*']
+    modassets["textures\\armor\\SL_Dibella\\"] = ['*.*']
+    modassets["textures\\clutter\\SL_Dibella\\"] = ['*.*']
+    modassets["textures\\ashara\\Dimonized dress\\Skirt\\"] = ['*.*']
+    modassets["textures\\azmoscreens\\statues\\"] = ['mrs3_gold*', 'ss*.*']
+    modassets["textures\\azmoscreens\\"] = ['*.*']
+    modassets["textures\\cubemaps\\"] = ['chitin_e_ebony.dds', 'quickskydark_eGD.dds']
+    modassets["textures\\kasprutz\\armor\\bdo_kibelius\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
+
+    modassets = {}
+    modassets["SEQ\\"] = ['SexLab_DibellaCult.seq']
+    modassets[""] = ['SexLab_DibellaCult.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
 if __name__ == '__main__':
 
     # ===== CK Tools
@@ -162,4 +196,7 @@ if __name__ == '__main__':
     # deploySD()
 
     # ===== SL Dialogues
-    # deploySLDialogues()
+    # deploySLD()
+
+    # ===== Sisterhood of Dibella
+    deploySLSD()
