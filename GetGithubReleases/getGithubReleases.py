@@ -83,6 +83,12 @@ def githubReleaseSLSD(githubapi):
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood 2019-04-08',githubfolder)
 
+def githubReleaseAlicia(githubapi):
+    print("========= Alicia")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia 2019-04-08',githubfolder)
+
+
 
 if __name__ == '__main__':
     from github import Github
@@ -102,4 +108,7 @@ if __name__ == '__main__':
     # githubReleaseSLD(g)
 
     # ===== Sisterhood of Dibella
-    githubReleaseSLSD(g)
+    # githubReleaseSLSD(g)
+
+    # ===== Alicia
+    githubReleaseAlicia(g)

@@ -220,6 +220,47 @@ def deploySLSD():
     modassets[""] = ['SexLab_DibellaCult_Sisters.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+def deployAlicia():
+    print("========= Alicia")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Alicia-PainSlut\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['Alicia_*.*']
+
+    modassets["sound\\Voice\\AliciaPainSlut.esp\\_Alicia_VOICE\\"] = ['*.*']
+
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\AliciaPainSlut.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\AliciaPainSlut\\"] = ['*.*']
+    modassets["meshes\\armor\\AliciaPainSlut\\"] = ['*.*']
+    modassets["meshes\\armor\\AliciaSanguineFollowers\\"] = ['*.*']
+    modassets["meshes\\clutter\\AliciaPainSlut\\"] = ['*.*']
+    modassets["meshes\\weapons\\AliciaPainSlut\\"] = ['*.*']
+
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\AliciaPainSlut.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\AliciaPainSlut\\"] = ['*.*']
+    modassets["textures\\_sd_\\shrine\\"] = ['*.*']
+    modassets["textures\\armor\\AliciaPainSlut\\"] = ['*.*']
+    modassets["textures\\azmoscreens\\"] = ['mrs3_gold*', 'ss*.*']
+    modassets["textures\\azmoscreens\\statues\\"] = ['*.*']
+    modassets["textures\\baronb\\dragon\\"] = ['*.*']
+    modassets["textures\\clutter\\AliciaPainSlut\\"] = ['*.*']
+    modassets["textures\\weapons\\AliciaPainSlut\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Alicia-PainSlut\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\Data\\"
+
+    modassets = {}
+    modassets["SEQ\\"] = ['AliciaPainSlut.seq']
+    modassets[""] = ['AliciaPainSlut.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+
 if __name__ == '__main__':
 
     # ===== CK Tools
@@ -232,4 +273,7 @@ if __name__ == '__main__':
     # deploySLD()
 
     # ===== Sisterhood of Dibella
-    deploySLSD()
+    # deploySLSD()
+
+    # ===== Alicia
+    deployAlicia()
