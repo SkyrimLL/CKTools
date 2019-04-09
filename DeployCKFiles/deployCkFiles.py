@@ -31,6 +31,7 @@ def docopy(inputdir, outputdir, pattern):
     regexpattern = fnmatch.translate(pattern)
     prog = re.compile(regexpattern)
     # print("     Mover: " + mover)
+    totalfilecount = 0
     for (root, dirs, files) in os.walk(inputdir):
         # print(dirs)
         # print(files)
@@ -47,9 +48,12 @@ def docopy(inputdir, outputdir, pattern):
                 # print("   File:" + fn)
                 shutil.copy(join(root, fn), join(targetdir, fn))
                 filecount = filecount + 1
+        totalfilecount = totalfilecount + filecount
         if filecount != 0:
-            print("     " + root)
-            print("     ... " + str(filecount) + " files")
+            print("     " + str(filecount) + " files in " + root)
+
+    if totalfilecount == 0:
+        print("     ... NO MATCH in " + root)
 
 
 def deployfiles(sourcelist, destinationlist, modassetslist):
@@ -161,7 +165,7 @@ def deploySLSD():
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
 
     modassets = {}
-    modassets["scripts\\"] = ['SL_Dibella*.*']
+    modassets["scripts\\"] = ['SL_Dibella_*.*']
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_DibellaCult.esp\\"] = ['*.*']
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['0001E82C.NIF', '0001E765.NIF', '000133A5.NIF', '000133B0.NIF', '000133B7.NIF', '0001335F.NIF', '00013386.NIF']
     modassets["meshes\\armor\\SL_Dibella\\"] = ['*.*']
@@ -171,8 +175,8 @@ def deploySLSD():
     modassets["textures\\armor\\SL_Dibella\\"] = ['*.*']
     modassets["textures\\clutter\\SL_Dibella\\"] = ['*.*']
     modassets["textures\\ashara\\Dimonized dress\\Skirt\\"] = ['*.*']
-    modassets["textures\\azmoscreens\\statues\\"] = ['mrs3_gold*', 'ss*.*']
-    modassets["textures\\azmoscreens\\"] = ['*.*']
+    modassets["textures\\azmoscreens\\"] = ['mrs3_gold*', 'ss*.*']
+    modassets["textures\\azmoscreens\\statues\\"] = ['*.*']
     modassets["textures\\cubemaps\\"] = ['chitin_e_ebony.dds', 'quickskydark_eGD.dds']
     modassets["textures\\kasprutz\\armor\\bdo_kibelius\\"] = ['*.*']
 
@@ -187,6 +191,35 @@ def deploySLSD():
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
+    # ----
+    print("========= Sisterhood of Dibella - Sisters addon")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood-Sisters\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
+
+    modassets = {}
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_DibellaCult_Sisters.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['0001E82C.NIF', '0001E765.NIF', '000133A5.NIF', '000133B0.NIF', '000133B7.NIF', '0001335F.NIF', '00013386.NIF']
+    modassets["meshes\\armor\\SL_Dibella_Sisters\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab_DibellaCult_Sisters.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\Skyrim.esm\\"] = ['0001E82C.*', '0001E765.*', '000133A5.*', '000133B0.*', '000133B7.*', '0001335F.*', '00013386.*']
+    modassets["textures\\armor\\SL_Dibella_Sisters\\"] = ['*.*']
+    modassets["textures\\armor\\SL_Dibella\\"] = ['dibella_sister_outfit.dds','femalebody_1_s.dds','lilly.dds','lilly_n.dds','travel_hood.dds']
+    modassets["textures\\armor\\Gatti\\"] = ['*.*']
+    modassets["textures\\Ashara\\Imperial Wedding outfit\\"] = ['*.*']
+    modassets["textures\\fox011\\f046\\"] = ['*.*']
+    modassets["textures\\SexyLingerieSet\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood-Sisters\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SL_DibellaSisters*.*']
+    modassets["SEQ\\"] = ['SexLab_DibellaCult_Sisters.seq']
+    modassets[""] = ['SexLab_DibellaCult_Sisters.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 if __name__ == '__main__':
 
     # ===== CK Tools
