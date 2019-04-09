@@ -222,6 +222,7 @@ def deploySLSD():
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
+
 def deployAlicia():
     print("========= Alicia")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
@@ -260,6 +261,7 @@ def deployAlicia():
     modassets[""] = ['AliciaPainSlut.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
 
 def deployHormones():
     print("========= Hormones")
