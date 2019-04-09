@@ -46,8 +46,9 @@ def docopy(inputdir, outputdir, pattern):
                 trymakedir(targetdir)
                 # print(targetdir)
                 # print("   File:" + fn)
-                shutil.copy(join(root, fn), join(targetdir, fn))
-                filecount = filecount + 1
+                if (fn != "Thumbs.db"):
+                    shutil.copy(join(root, fn), join(targetdir, fn))
+                    filecount = filecount + 1
         totalfilecount = totalfilecount + filecount
         if filecount != 0:
             print("     " + str(filecount) + " files in " + root)
@@ -260,6 +261,39 @@ def deployAlicia():
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
+def deployHormones():
+    print("========= Hormones")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Hormones\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SLH_*.*']
+
+    modassets["meshes\\actors\\character\\animations\ZazAnimationPack\\"] = ['ZaZHorny*.*']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_Hormones.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\SL_Hormones\\"] = ['*.*']
+
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab_Hormones.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\Rosa\\"] = ['*.*']
+    modassets["textures\\actors\\character\\SL_Hormones\\"] = ['*.*']
+    modassets["textures\\_SLH\\"] = ['*.*']
+    modassets["textures\\baronb\\dragon\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Hormones\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\Data\\"
+
+    modassets = {}
+    modassets["Interface\\SexLab_Hormones\\"] = ['logo.dds']
+    modassets["SEQ\\"] = ['SexLab_Hormones.seq']
+    modassets["textures\\actors\\character\\slavetats\\bimbo\\"] = ['*.*']
+    modassets["textures\\actors\\character\\slavetats\\"] = ['bimbo.json']
+    modassets[""] = ['SexLab_Hormones.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
 
 if __name__ == '__main__':
 
@@ -276,4 +310,7 @@ if __name__ == '__main__':
     # deploySLSD()
 
     # ===== Alicia
-    deployAlicia()
+    # deployAlicia()
+
+    # ===== Hormones
+    deployHormones()
