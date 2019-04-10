@@ -54,7 +54,7 @@ def docopy(inputdir, outputdir, pattern):
             print("     " + str(filecount) + " files in " + root)
 
     if totalfilecount == 0:
-        print("     ... NO MATCH in " + root)
+        print("     ... NO MATCH in " + inputdir)
 
 
 def deployfiles(sourcelist, destinationlist, modassetslist):
@@ -297,6 +297,42 @@ def deployHormones():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
+def deployParasites():
+    print("========= Parasites")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Kyne-Blessing\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SLP_*.*']
+
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab-Parasites.esp\\"] = ['*.*'] 
+    modassets["meshes\\armor\\KyneBlessing\\"] = ['*.*']
+    modassets["meshes\\clutter\\KyneBlessing\\"] = ['*.*']
+
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab-Parasites.esp\\"] = ['*.*']
+    modassets["textures\\armor\\KyneBlessing\\"] = ['*.*']
+    modassets["textures\\clutter\\KyneBlessing\\"] = ['*.*']
+    modassets["textures\\TeraArmors\\castanic_f_r16\\"] = ['*.*']
+    modassets["textures\\TeraArmors\\xTeraglassrobe\\"] = ['*.*']
+    modassets["textures\\TeraArmors\\zzterah21\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM\\castanic_f_r16\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM\\xTeraglassrobe\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM\\zzterah21\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Kyne-Blessing\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\Data\\"
+
+    modassets = {}
+    modassets["Interface\\KyneBlessing\\"] = ['logo.dds']
+    modassets["SEQ\\"] = ['SexLab-Parasites.seq']
+    modassets[""] = ['SexLab-Parasites.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+
 if __name__ == '__main__':
 
     # ===== CK Tools
@@ -315,4 +351,7 @@ if __name__ == '__main__':
     # deployAlicia()
 
     # ===== Hormones
-    deployHormones()
+    # deployHormones()
+
+    # ===== Parasites
+    deployParasites()

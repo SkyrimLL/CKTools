@@ -97,6 +97,12 @@ def githubReleaseHormones(githubapi):
     githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones 2019-04-09',githubfolder)
 
 
+def githubReleaseParasites(githubapi):
+    print("========= Parasites")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites 2019-04-09',githubfolder)
+
+
 
 if __name__ == '__main__':
     from github import Github
@@ -122,4 +128,7 @@ if __name__ == '__main__':
     # githubReleaseAlicia(g)
 
     # ===== Hormones
-    githubReleaseHormones(g)
+    # githubReleaseHormones(g)
+
+    # ===== Parasites
+    githubReleaseParasites(g)
