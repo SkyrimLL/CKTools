@@ -333,31 +333,57 @@ def deployParasites():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
+def deployMindControl():
+    print("========= Mind Control")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-MindControl\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\MindControl\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SL_Hypnosis_*.*']
+
+    modassets["meshes\\armor\\MindControlCirclet\\circlets\\"] = ['*.*']
+
+    modassets["textures\\armor\\MindControlCirclet\\circlet\\"] = ['*.*']
+    modassets["textures\\_SLMC\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-MindControl\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\MindControl\\Data\\"
+
+    modassets = {}
+    modassets["Interface\\SexLab_MindControl\\"] = ['logo.dds']
+    modassets["SEQ\\"] = ['SexLab_MindControl.seq']
+    modassets[""] = ['SexLab_MindControl.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
 if __name__ == '__main__':
 
     # ===== CK Tools
     deployCKTools()
 
     # ===== Sanguine Debauchery +
-    deploySD()
+    # deploySD()
 
     # ===== SL Dialogues
-    deploySLD()
+    # deploySLD()
 
     # ===== Sisterhood of Dibella
-    deploySLSD()
+    # deploySLSD()
 
     # ===== Alicia
-    deployAlicia()
+    # deployAlicia()
 
     # ===== Hormones
-    deployHormones()
+    # deployHormones()
 
     # ===== Parasites
-    deployParasites()
+    # deployParasites()
 
     # ===== Mind Control
-    # deployMindControl()
+    deployMindControl()
 
     # ===== Family Ties
     # deployFamilyTies()
