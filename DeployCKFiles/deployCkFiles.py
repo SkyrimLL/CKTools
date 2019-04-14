@@ -359,6 +359,22 @@ def deployMindControl():
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
+
+def deployFamilyTies():
+    print("========= Family Ties")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Family-Ties\\Dev\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\FamilyTies\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['FT_*.*']
+    modassets["meshes\\actors\\character\\FamilyTies\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FamilyTies\\"] = ['*.*']
+    modassets[""] = ['FamilyTies.esp', 'FamilyTies-*.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+
 if __name__ == '__main__':
 
     # ===== CK Tools
@@ -383,10 +399,10 @@ if __name__ == '__main__':
     # deployParasites()
 
     # ===== Mind Control
-    deployMindControl()
+    # deployMindControl()
 
     # ===== Family Ties
-    # deployFamilyTies()
+    deployFamilyTies()
 
     # ===== Stories
     # deployStories()
