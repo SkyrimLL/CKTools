@@ -375,6 +375,73 @@ def deployFamilyTies():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
 
+def deployStories():
+    print("========= Stories")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Stories\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SLS_*.*']
+
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab-Stories.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['00013B9B.NIF', '000136BC.NIF']
+    modassets["meshes\\actors\\character\\SL_Stories\\"] = ['*.*']
+    modassets["meshes\\armor\\SL_Stories\\"] = ['*.*']
+    modassets["meshes\\clutter\\SL_Stories\\"] = ['*.*']
+
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab-Stories.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\Skyrim.esm\\"] = ['00013B9B.*', '000136BC.*']
+    modassets["textures\\actors\\character\\SL_Stories\\"] = ['*.*']
+    modassets["textures\\armor\\SL_Stories\\"] = ['*.*']
+    modassets["textures\\clutter\\SL_Stories\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Stories\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
+
+    modassets = {}
+    modassets["Interface\\SexLab_Stories\\"] = ['logo.dds']
+    modassets["SEQ\\"] = ['SexLab-Stories.seq']
+    modassets[""] = ['SexLab-Stories.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+
+def deployStoriesDevious():
+    print("========= Stories Devious")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-StoriesDevious\\Dev\\BSA\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SLSDDi_*.*']
+
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab-StoriesDevious.esp\\"] = ['*.*']
+    modassets["meshes\\actors\\character\\SL_Stories_Devious\\"] = ['*.*']
+    modassets["meshes\\armor\\SL_Stories_Devious\\"] = ['*.*']
+    modassets["meshes\\clutter\\SL_Stories_Devious\\"] = ['*.*']
+
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab-StoriesDevious.esp\\"] = ['*.*']
+    modassets["textures\\actors\\character\\SL_Stories_Devious\\"] = ['*.*']
+    modassets["textures\\armor\\SL_Stories_Devious\\"] = ['*.*']
+    modassets["textures\\clutter\\SL_Stories_Devious\\"] = ['*.*']
+    modassets["textures\\clutter\\cubemaps\\"] = ['bronze_e.dds', 'ore_quicksilver_e.dds', 'ore_steel_e.dds', 'shinyglass_e.dds']
+    modassets["textures\\clutter\\Milk\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-StoriesDevious\\Dev\\Loose\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
+
+    modassets = {}
+    modassets["SEQ\\"] = ['SexLab-StoriesDevious.seq']
+    modassets[""] = ['SexLab-StoriesDevious.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+
 if __name__ == '__main__':
 
     # ===== CK Tools
@@ -402,7 +469,8 @@ if __name__ == '__main__':
     # deployMindControl()
 
     # ===== Family Ties
-    deployFamilyTies()
+    # deployFamilyTies()
 
     # ===== Stories
-    # deployStories()
+    deployStories()
+    deployStoriesDevious()
