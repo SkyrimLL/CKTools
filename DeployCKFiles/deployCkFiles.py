@@ -448,28 +448,28 @@ if __name__ == '__main__':
     deployCKTools()
 
     # ===== Sanguine Debauchery +
-    # deploySD()
+    deploySD()
 
     # ===== SL Dialogues
-    # deploySLD()
+    deploySLD()
 
     # ===== Sisterhood of Dibella
-    # deploySLSD()
+    deploySLSD()
 
     # ===== Alicia
-    # deployAlicia()
+    deployAlicia()
 
     # ===== Hormones
-    # deployHormones()
+    deployHormones()
 
     # ===== Parasites
-    # deployParasites()
+    deployParasites()
 
     # ===== Mind Control
-    # deployMindControl()
+    deployMindControl()
 
     # ===== Family Ties
-    # deployFamilyTies()
+    deployFamilyTies()
 
     # ===== Stories
     deployStories()
