@@ -8,9 +8,12 @@
 # http://xahlee.info/python/python_path_manipulation.html
 
 import re
-import os 
+import os
+import os.path
 import shutil
 import fnmatch
+import filecmp
+
 
 
 def join(*args):
@@ -27,34 +30,31 @@ def trymakedir(path):
 
 
 def docopy(inputdir, outputdir, pattern):
-    print("Processing... " + pattern + " To: " + outputdir)
+    foundfiles = ""
     regexpattern = fnmatch.translate(pattern)
     prog = re.compile(regexpattern)
-    # print("     Mover: " + mover)
+
     totalfilecount = 0
     for (root, dirs, files) in os.walk(inputdir):
-        # print(dirs)
-        # print(files)
-
         filecount = 0
         for fn in files:
-            # print(os.path.join(root, fn))
-            # print("   File:" + fn)
             m = prog.match(fn)
             if m:
                 targetdir = join(outputdir, os.path.relpath(root, inputdir))
                 trymakedir(targetdir)
-                # print(targetdir)
-                # print("   File:" + fn)
+                # Exclude some files
                 if (fn != "Thumbs.db"):
-                    shutil.copy(join(root, fn), join(targetdir, fn))
-                    filecount = filecount + 1
+                    # If file is newer, or if filesize is different in case os .esp (because of load order)
+                    if (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))) or (((".esp" in fn) or (".esm" in fn)) and (not filecmp.cmp(join(root, fn), join(targetdir, fn)))):
+                        foundfiles = foundfiles + "\n" + "Found new file " + join(targetdir, fn)
+                        shutil.copy(join(root, fn), join(targetdir, fn))
+                        filecount = filecount + 1
         totalfilecount = totalfilecount + filecount
         if filecount != 0:
+            print("----")
+            print("Processing... " + pattern + " To: " + outputdir + foundfiles)
             print("     " + str(filecount) + " files in " + root)
 
-    if totalfilecount == 0:
-        print("     ... NO MATCH in " + inputdir)
 
 
 def deployfiles(sourcelist, destinationlist, modassetslist):
@@ -65,7 +65,6 @@ def deployfiles(sourcelist, destinationlist, modassetslist):
                 for filepattern in filepatternlist:
                     trymakedir(destination)
                     docopy(source + asset, destination + asset, filepattern)
-                    print("----")
 
 
 def deployCKTools():
