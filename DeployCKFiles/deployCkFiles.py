@@ -45,8 +45,19 @@ def docopy(inputdir, outputdir, pattern):
                 # Exclude some files
                 if (fn != "Thumbs.db"):
                     # If file is newer, or if filesize is different in case os .esp (because of load order)
-                    if (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))) or (((".esp" in fn) or (".esm" in fn)) and (not filecmp.cmp(join(root, fn), join(targetdir, fn)))):
+                    copyfileflag = False
+                    if (not os.path.exists(join(targetdir, fn))):
                         foundfiles = foundfiles + "\n" + "Found new file " + join(targetdir, fn)
+                        copyfileflag = True
+                    elif (os.path.exists(join(root, fn)) and os.path.exists(join(targetdir, fn))):
+                            if (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
+                                foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
+                                copyfileflag = True
+                            elif (((".esp" in fn) or (".esm" in fn)) and (not filecmp.cmp(join(root, fn), join(targetdir, fn)))):
+                                foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
+                                copyfileflag = True
+
+                    if (copyfileflag):
                         shutil.copy(join(root, fn), join(targetdir, fn))
                         filecount = filecount + 1
         totalfilecount = totalfilecount + filecount
