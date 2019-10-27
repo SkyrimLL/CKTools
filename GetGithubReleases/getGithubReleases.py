@@ -62,51 +62,56 @@ def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubf
 def githubReleaseCKTools(githubapi):
     print("========= CKTools")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
-    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2019',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2019', githubfolder)
 
 
 def githubReleaseSD(githubapi):
     print("========= Sanguine Debauchery")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\"
     # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019-05-02',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019-09-07', githubfolder)
 
 
 def githubReleaseSLD(githubapi):
     print("========= SL Dialogues")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\"
     # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019-05-02',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019-09-07', githubfolder)
 
 
 def githubReleaseSLSD(githubapi):
     print("========= Sisterhood of Dibella")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood 2019-04-08',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood 2019-04-08', githubfolder)
 
 
 def githubReleaseAlicia(githubapi):
     print("========= Alicia")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia 2019-05-02',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia 2019-05-02', githubfolder)
 
 
 def githubReleaseHormones(githubapi):
     print("========= Hormones")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones 2019-05-02',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones 2019-09-07', githubfolder)
 
 
 def githubReleaseParasites(githubapi):
     print("========= Parasites")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites 2019-04-09',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites 2019-04-09', githubfolder)
 
 
 def githubReleaseFamilyTies(githubapi):
     print("========= Family Ties")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\FamilyTies\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Family Ties 2019-05-02',githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Family Ties 2019-05-02', githubfolder)
+
+def githubReleaseStories(githubapi):
+    print("========= Stories")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Stories 2019-09-07', githubfolder)
 
 
 
@@ -131,7 +136,7 @@ if __name__ == '__main__':
     # githubReleaseSLSD(g)
 
     # ===== Alicia
-    githubReleaseAlicia(g)
+    # githubReleaseAlicia(g)
 
     # ===== Hormones
     githubReleaseHormones(g)
@@ -140,4 +145,8 @@ if __name__ == '__main__':
     # githubReleaseParasites(g)
 
     # ===== Family Ties
-    githubReleaseFamilyTies(g)
+    # githubReleaseFamilyTies(g)
+    
+    # ===== Stories
+    githubReleaseStories(g)
+
