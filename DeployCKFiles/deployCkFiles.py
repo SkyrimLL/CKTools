@@ -95,7 +95,7 @@ def deploySD():
     print("========= Sanguine Debauchery")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
 
-    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\Loose\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SDPlus\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
 
     modassets = {}
@@ -124,6 +124,7 @@ def deploySD():
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
+    print("==== SD+ Resources")
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SDResources\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\Data\\"
 
@@ -139,6 +140,37 @@ def deploySD():
     modassets["textures\\Sheogorad\\daedric\\"] = ['*.*']
     modassets["textures\\ZaZ\\Gagz\\"] = ['*.*']
     modassets["textures\\ZaZ\\Restraints\\"] = ['*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("==== Revealing Male Spriggan")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\RevealingMaleSpriggan\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\RevealingMaleSpriggan\\Data\\"
+
+    modassets = {}
+    modassets["meshes\\_sd_\\sprigganarmor\\male"] = ['SprigganCuirass_*.*']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("==== SD Addon")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SD Addon\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SD Addon\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['sd_addon_*.*']
+    modassets["SEQ\\"] = ['SD Addons.seq']
+    modassets["Interface\\coco\\"] = ['sdaddon.*']
+    modassets[""] = ['SD Addons.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("==== SlaveTat Event Bridge")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Sanguine-Debauchery-Plus\\Dev\\SlaveTatsEventsBridge\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SlaveTatsEventsBridge\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['SlaveTatsEventsBridge*.*']
+    modassets[""] = ['SlaveTatsEventsBridge.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
@@ -172,6 +204,7 @@ def deploySLD():
 def deploySLSD():
     print("========= Sisterhood of Dibella")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+    
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
 
@@ -236,6 +269,7 @@ def deploySLSD():
 def deployAlicia():
     print("========= Alicia")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Alicia-PainSlut\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\Data\\"
 
@@ -276,6 +310,7 @@ def deployAlicia():
 def deployHormones():
     print("========= Hormones")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Hormones\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\Data\\"
 
@@ -310,6 +345,7 @@ def deployHormones():
 def deployParasites():
     print("========= Parasites")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Kyne-Blessing\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\Data\\"
 
@@ -346,6 +382,7 @@ def deployParasites():
 def deployMindControl():
     print("========= Mind Control")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-MindControl\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\MindControl\\Data\\"
 
@@ -388,6 +425,7 @@ def deployFamilyTies():
 def deployStories():
     print("========= Stories")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-Stories\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
 
@@ -422,6 +460,7 @@ def deployStories():
 def deployStoriesDevious():
     print("========= Stories Devious")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\SexLab-StoriesDevious\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
 
@@ -448,6 +487,30 @@ def deployStoriesDevious():
     modassets = {}
     modassets["SEQ\\"] = ['SexLab-StoriesDevious.seq']
     modassets[""] = ['SexLab-StoriesDevious.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+def deployPatches():
+    print("========= Patches")
+    print("===== Sexlab Warm Bodies")
+    sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
+
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\SexLabWarmBodiesPatch\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SexLabWarmBodiesPatch\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['_slff_playerAlias*.*','questVersioning.*','questVersioningPlayerAlias.*']
+    modassets[""] = ['SexLab Warmbodies.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("===== Puppet Master")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\PuppetMasterPatch\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\PuppetMasterPatch\\Data\\"
+
+    modassets = {}
+    modassets["scripts\\"] = ['_mindconfig*.*','_mindscript.*']
+    modassets[""] = ['PuppetMaster.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
@@ -484,3 +547,6 @@ if __name__ == '__main__':
     # ===== Stories
     deployStories()
     deployStoriesDevious()
+
+    # ===== Obscure Patches
+    deployPatches()
