@@ -204,7 +204,7 @@ def deploySLD():
 def deploySLSD():
     print("========= Sisterhood of Dibella")
     sourcefolder = "F:\\Steam\\steamapps\\common\\skyrim\\Data\\"
-    
+
     targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Dibella-Sisterhood\\Dev\\BSA\\Data\\"
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\Data\\"
 
@@ -316,6 +316,8 @@ def deployHormones():
 
     modassets = {}
     modassets["scripts\\"] = ['SLH_*.*']
+
+    modassets["sound\\FX\\SL_Hormones\\"] = ['bimbo*.*']
 
     modassets["meshes\\actors\\character\\animations\ZazAnimationPack\\"] = ['ZaZHorny*.*']
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_Hormones.esp\\"] = ['*.*']
