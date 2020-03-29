@@ -62,45 +62,45 @@ def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubf
 def githubReleaseCKTools(githubapi):
     print("========= CKTools")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
-    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2019', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools 2020', githubfolder)
 
 
 def githubReleaseSD(githubapi):
     print("========= Sanguine Debauchery")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\"
     # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019-10-31', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2020-03', githubfolder)
 
 
 def githubReleaseSLD(githubapi):
     print("========= SL Dialogues")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\"
     # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019-10-31', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2020-03', githubfolder)
 
 
 def githubReleaseSLSD(githubapi):
     print("========= Sisterhood of Dibella")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood 2019-10-31', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood 2020-03', githubfolder)
 
 
 def githubReleaseAlicia(githubapi):
     print("========= Alicia")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia 2019-05-02', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia 2020-03', githubfolder)
 
 
 def githubReleaseHormones(githubapi):
     print("========= Hormones")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones 2019-10-31', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones 2020-03', githubfolder)
 
 
 def githubReleaseParasites(githubapi):
     print("========= Parasites")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites 2019-04-09', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites 2020-03', githubfolder)
 
 
 def githubReleaseFamilyTies(githubapi):
@@ -111,8 +111,27 @@ def githubReleaseFamilyTies(githubapi):
 def githubReleaseStories(githubapi):
     print("========= Stories")
     githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Stories 2019-09-07', githubfolder)
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Stories 2020-03', githubfolder)
 
+def githubReleaseCollegeDaysPatch(githubapi):
+    print("========= Obscure Patches - College Days")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\CollegeDaysPatch\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'College Days of Winterhold 2020-03', githubfolder)
+
+def githubReleasePuppetMasterPatch(githubapi):
+    print("========= Obscure Patches - Puppet Master")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\PuppetMasterPatch\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Puppet Master 2020-03', githubfolder)
+
+def githubReleaseSexLabWarmBodiesPatch(githubapi):
+    print("========= Obscure Patches - SexLab Warm Bodies")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SexLabWarmBodiesPatch\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Warm Bodies 2020-03', githubfolder)
+
+def githubReleaseLoversComfortPatch(githubapi):
+    print("========= Obscure Patches - Lovers Comfort Bodies")
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\LoversComfortPatch\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Lovers Comfort 2020-03', githubfolder)
 
 
 if __name__ == '__main__':
@@ -133,20 +152,26 @@ if __name__ == '__main__':
     githubReleaseSLD(g)
 
     # ===== Sisterhood of Dibella
-    # githubReleaseSLSD(g)
+    githubReleaseSLSD(g)
 
     # ===== Alicia
-    # githubReleaseAlicia(g)
+    githubReleaseAlicia(g)
 
     # ===== Hormones
     githubReleaseHormones(g)
 
     # ===== Parasites
-    # githubReleaseParasites(g)
+    githubReleaseParasites(g)
 
     # ===== Family Ties
     # githubReleaseFamilyTies(g)
     
     # ===== Stories
-    # githubReleaseStories(g)
+    githubReleaseStories(g)
+
+    # ===== Obscure Patches
+    githubReleaseCollegeDaysPatch(g)
+    # githubReleasePuppetMasterPatch(g)
+    # githubReleaseSexLabWarmBodiesPatch(g)
+    githubReleaseLoversComfortPatch(g)
 

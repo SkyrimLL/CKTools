@@ -445,6 +445,10 @@ def deployStories():
     modassets["textures\\actors\\character\\SL_Stories\\"] = ['*.*']
     modassets["textures\\armor\\SL_Stories\\"] = ['*.*']
     modassets["textures\\clutter\\SL_Stories\\"] = ['*.*']
+    modassets["Textures\\Dwarven Cyborg Collection\\gilded\\"] = ['*.*']
+    modassets["textures\\azmoscreens\\pinups\\"] = ['*.*']
+    modassets["textures\\Oaristys\\The Witcher\\Alchemy\\"] = ['*.*']
+    modassets["textures\\Oaristys\\The Witcher\\Tools\\"] = ['*.*']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
@@ -513,6 +517,24 @@ def deployPatches():
     modassets = {}
     modassets["scripts\\"] = ['_mindconfig*.*','_mindscript.*']
     modassets[""] = ['PuppetMaster.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("===== Lovers Comfort")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\\LoversComfortPatch\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\\LoversComfortPatch\\Data\\"
+
+    modassets = {}
+    modassets[""] = ['LoversComfort.esp']
+
+    deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
+
+    print("===== College Days of Winterhold")
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\CollegeDaysPatch\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\CollegeDaysPatch\\Data\\"
+
+    modassets = {} 
+    modassets[""] = ['CollegeDaysWinterhold.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
