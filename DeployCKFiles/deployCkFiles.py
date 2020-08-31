@@ -43,7 +43,7 @@ def docopy(inputdir, outputdir, pattern):
                 targetdir = join(outputdir, os.path.relpath(root, inputdir))
                 trymakedir(targetdir)
                 # Exclude some files
-                if (fn != "Thumbs.db"):
+                if (fn != "Thumbs.db") and (not (".vortex_backup" in fn)):
                     # If file is newer, or if filesize is different in case os .esp (because of load order)
                     copyfileflag = False
                     if (not os.path.exists(join(targetdir, fn))):
@@ -363,7 +363,9 @@ def deployParasites():
     modassets["textures\\clutter\\KyneBlessing\\"] = ['*.*']
     modassets["textures\\TeraArmors\\castanic_f_r16\\"] = ['*.*']
     modassets["textures\\TeraArmors\\xTeraglassrobe\\"] = ['*.*']
+    modassets["textures\\TeraArmors\\xteraelegance\\"] = ['*.*']
     modassets["textures\\TeraArmors\\zzterah21\\"] = ['*.*']
+    modassets["textures\\teraarmors2\\Neophyte\\"] = ['*.*']
     modassets["textures\\TeraArmorsM\\castanic_f_r16\\"] = ['*.*']
     modassets["textures\\TeraArmorsM\\xTeraglassrobe\\"] = ['*.*']
     modassets["textures\\TeraArmorsM\\zzterah21\\"] = ['*.*']
@@ -521,10 +523,11 @@ def deployPatches():
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
     print("===== Lovers Comfort")
-    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\\LoversComfortPatch\\Data\\"
-    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\\LoversComfortPatch\\Data\\"
+    targetfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\02 - Releases\\Obscure-patches\\LoversComfortPatch\\Data\\"
+    githubfolder = "E:\\Games-data\\TESV-Skyrim\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\LoversComfortPatch\\Data\\"
 
     modassets = {}
+    modassets["scripts\\"] = ['loverscomfort*.*','loverscomfort.*']
     modassets[""] = ['LoversComfort.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
