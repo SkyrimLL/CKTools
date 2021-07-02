@@ -50,10 +50,10 @@ def docopy(inputdir, outputdir, pattern):
                         foundfiles = foundfiles + "\n" + "Found new file " + join(targetdir, fn)
                         copyfileflag = True
                     elif (os.path.exists(join(root, fn)) and os.path.exists(join(targetdir, fn))):
-                            if (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
+                            if ((not ".esp" in fn) and (not ".esm" in fn)) and (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
                                 foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
                                 copyfileflag = True
-                            elif (((".esp" in fn) or (".esm" in fn)) and (not filecmp.cmp(join(root, fn), join(targetdir, fn)))):
+                            elif (".esp" in fn) or (".esm" in fn) or (not filecmp.cmp(join(root, fn), join(targetdir, fn))):
                                 foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
                                 copyfileflag = True
 
@@ -322,6 +322,7 @@ def deployHormones():
     modassets["meshes\\actors\\character\\animations\ZazAnimationPack\\"] = ['ZaZHorny*.*']
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab_Hormones.esp\\"] = ['*.*']
     modassets["meshes\\actors\\character\\SL_Hormones\\"] = ['*.*']
+    modassets["meshes\\clutter\\SL_Hormones\\"] = ['*.*']
 
     modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab_Hormones.esp\\"] = ['*.*']
     modassets["textures\\actors\\character\\Rosa\\"] = ['*.*']
@@ -337,9 +338,13 @@ def deployHormones():
 
     modassets = {}
     modassets["Interface\\SexLab_Hormones\\"] = ['logo.dds']
+    modassets["Interface\\Translations\\"] = ['SexLab_Hormones*.*']
     modassets["SEQ\\"] = ['SexLab_Hormones.seq']
     modassets["textures\\actors\\character\\slavetats\\bimbo\\"] = ['*.*']
     modassets["textures\\actors\\character\\slavetats\\"] = ['bimbo.json']
+    modassets["textures\\actors\\character\\slavetats\\hormones\\"] = ['*.*']
+    modassets["textures\\actors\\character\\slavetats\\"] = ['hormones.json']
+    modassets["SKSE\\Plugins\\StorageUtilData\\SLHormones\\"] = ['*.*']
     modassets[""] = ['SexLab_Hormones.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
@@ -363,14 +368,21 @@ def deployParasites():
     modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab-Parasites.esp\\"] = ['*.*']
     modassets["textures\\armor\\KyneBlessing\\"] = ['*.*']
     modassets["textures\\clutter\\KyneBlessing\\"] = ['*.*']
+
     modassets["textures\\TeraArmors\\castanic_f_r16\\"] = ['*.*']
     modassets["textures\\TeraArmors\\xTeraglassrobe\\"] = ['*.*']
     modassets["textures\\TeraArmors\\xteraelegance\\"] = ['*.*']
     modassets["textures\\TeraArmors\\zzterah21\\"] = ['*.*']
     modassets["textures\\teraarmors2\\Neophyte\\"] = ['*.*']
+    modassets["textures\\TeraArmors2\\ZZCastanicL00\\"] = ['*.*']
+
     modassets["textures\\TeraArmorsM\\castanic_f_r16\\"] = ['*.*']
     modassets["textures\\TeraArmorsM\\xTeraglassrobe\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM\\xteraelegance\\"] = ['*.*']
     modassets["textures\\TeraArmorsM\\zzterah21\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM2\\Neophyte\\"] = ['*.*']
+    modassets["textures\\TeraArmorsM2\\ZZCastanicL00\\"] = ['*.*']
+
     modassets["textures\\zaz\\xxfurotrap\\"] = ['*.*']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
@@ -440,13 +452,13 @@ def deployStories():
     modassets["scripts\\"] = ['SLS_*.*']
 
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab-Stories.esp\\"] = ['*.*']
-    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['00013B9B.NIF', '000136BC.NIF']
+    modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\Skyrim.esm\\"] = ['00013B9B.NIF', '000136BC.NIF', '000B1CFF.NIF', '0004815F.NIF']
     modassets["meshes\\actors\\character\\SL_Stories\\"] = ['*.*']
     modassets["meshes\\armor\\SL_Stories\\"] = ['*.*']
     modassets["meshes\\clutter\\SL_Stories\\"] = ['*.*']
 
     modassets["textures\\actors\\character\\FacegenData\\FaceTint\\SexLab-Stories.esp\\"] = ['*.*']
-    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\Skyrim.esm\\"] = ['00013B9B.*', '000136BC.*']
+    modassets["textures\\actors\\character\\FacegenData\\FaceTint\\Skyrim.esm\\"] = ['00013B9B.*', '000136BC.*', '000B1CFF.*', '0004815F.*']
     modassets["textures\\actors\\character\\SL_Stories\\"] = ['*.*']
     modassets["textures\\armor\\SL_Stories\\"] = ['*.*']
     modassets["textures\\clutter\\SL_Stories\\"] = ['*.*']
@@ -476,7 +488,7 @@ def deployStoriesDevious():
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
 
     modassets = {}
-    modassets["scripts\\"] = ['SLSDDi_*.*']
+    modassets["scripts\\"] = ['SLSDDi_*.*','bpwMatchCardScript.*']
 
     modassets["meshes\\actors\\character\\FacegenData\\FaceGeom\\SexLab-StoriesDevious.esp\\"] = ['*.*']
     modassets["meshes\\actors\\character\\SL_Stories_Devious\\"] = ['*.*']
@@ -488,7 +500,7 @@ def deployStoriesDevious():
     modassets["textures\\armor\\SL_Stories_Devious\\"] = ['*.*']
     modassets["textures\\clutter\\SL_Stories_Devious\\"] = ['*.*']
     modassets["textures\\clutter\\cubemaps\\"] = ['bronze_e.dds', 'ore_quicksilver_e.dds', 'ore_steel_e.dds', 'shinyglass_e.dds']
-    modassets["textures\\clutter\\Milk\\"] = ['*.*']
+    modassets["textures\\Milk\\"] = ['*.*']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
@@ -496,6 +508,8 @@ def deployStoriesDevious():
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\Data\\"
 
     modassets = {}
+    modassets["textures\\actors\\character\\slavetats\\milkfarm\\"] = ['*.*']
+    modassets["textures\\actors\\character\\slavetats\\"] = ['milkfarm.json']
     modassets["SEQ\\"] = ['SexLab-StoriesDevious.seq']
     modassets[""] = ['SexLab-StoriesDevious.esp']
 
@@ -550,7 +564,7 @@ def deployPatches():
 
     modassets = {}
     modassets["scripts\\"] = ['SIP_*.*']
-    modassets[""] = ['SkyrimImmersionPatch.esp']
+    modassets[""] = ['SkyrimImmersionPatch.esp', 'SkyrimImmersionPatch-Legendary.esp']
 
     deployfiles([sourcefolder], [targetfolder, githubfolder], modassets)
 
