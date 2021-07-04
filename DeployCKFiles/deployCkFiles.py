@@ -50,15 +50,24 @@ def docopy(inputdir, outputdir, pattern):
                         foundfiles = foundfiles + "\n" + "Found new file " + join(targetdir, fn)
                         copyfileflag = True
                     elif (os.path.exists(join(root, fn)) and os.path.exists(join(targetdir, fn))):
-                            if ((not ".esp" in fn) and (not ".esm" in fn)) and (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
-                                foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
-                                copyfileflag = True
-                            elif (".esp" in fn) or (".esm" in fn) or (not filecmp.cmp(join(root, fn), join(targetdir, fn))):
-                                foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
-                                copyfileflag = True
+                        if (not filecmp.cmp(join(root, fn), join(targetdir, fn))):
+                            # Copy new or missing files
+                            foundfiles = foundfiles + "\n" + "Updating different file " + join(targetdir, fn)
+                            copyfileflag = True
+                        elif (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
+                            # Copy newer files - updated recently
+                            foundfiles = foundfiles + "\n" + "Updating newer file " + join(targetdir, fn)
+                            copyfileflag = True
+                        elif (".esp" in fn) or (".esm" in fn):
+                           # Force copy of esp and esm files (because of timestamps used for load order)
+                           # foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
+                            copyfileflag = True
 
                     if (copyfileflag):
                         shutil.copy(join(root, fn), join(targetdir, fn))
+                        if (".esp" in fn) or (".esm" in fn):
+                            os.utime(join(targetdir, fn), None)
+
                         filecount = filecount + 1
         totalfilecount = totalfilecount + filecount
         if filecount != 0:
