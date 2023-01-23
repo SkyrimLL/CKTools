@@ -16,6 +16,7 @@
 
 import json
 import os
+from github import Github
 
 def trymakedir(path):
     try:
@@ -24,6 +25,7 @@ def trymakedir(path):
         # print(e)
         if not os.path.exists(path):
             raise Exception('failed to create output directory: ' + path)
+
 
 def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubfolder):
     repo = githubapi.get_repo(githubaccount + '/' + githubrepo)
@@ -108,25 +110,30 @@ def githubReleaseFamilyTies(githubapi, releasedate):
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\FamilyTies\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Family Ties ' + releasedate, githubfolder)
 
+
 def githubReleaseStories(githubapi, releasedate):
     print("========= Stories")
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Stories ' + releasedate, githubfolder)
+
 
 def githubReleaseCollegeDaysPatch(githubapi, releasedate):
     print("========= Obscure Patches - College Days")
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\CollegeDaysPatch\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'College Days of Winterhold ' + releasedate, githubfolder)
 
+
 def githubReleasePuppetMasterPatch(githubapi, releasedate):
     print("========= Obscure Patches - Puppet Master")
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\PuppetMasterPatch\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Puppet Master ' + releasedate, githubfolder)
 
+
 def githubReleaseSexLabWarmBodiesPatch(githubapi, releasedate):
     print("========= Obscure Patches - SexLab Warm Bodies")
     githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SexLabWarmBodiesPatch\\"
     githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Warm Bodies ' + releasedate, githubfolder)
+
 
 def githubReleaseLoversComfortPatch(githubapi, releasedate):
     print("========= Obscure Patches - Lovers Comfort Bodies")
@@ -134,8 +141,20 @@ def githubReleaseLoversComfortPatch(githubapi, releasedate):
     githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Lovers Comfort ' + releasedate, githubfolder)
 
 
+def githubReleaseBathingInSkyrimPatch(githubapi, releasedate):
+    print("========= Obscure Patches - Bathing in Skyrim")
+    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\BathingInSkyrim\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Bathing In Skyrim ' + releasedate, githubfolder)
+
+
+def githubReleaseImmersionPatch(githubapi, releasedate):
+    print("========= Skyrim Immersion Patch")
+    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SkyrimImmersionPatch\\"
+    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Skyrim Immersion Patch ' + releasedate, githubfolder)
+
+
+
 if __name__ == '__main__':
-    from github import Github
 
     with open('config.json', 'r') as f:
         config = json.load(f)
@@ -143,35 +162,36 @@ if __name__ == '__main__':
     g = Github(base_url="https://api.github.com", login_or_token=config['ACCESS_KEY'])
 
     # ===== CK Tools
-    # githubReleaseCKTools(g)
+    # githubReleaseCKTools(g, "2021-06-30")
 
     # ===== Sanguine Debauchery +
-    githubReleaseSD(g, "2021-05-31")
+    githubReleaseSD(g, "2022-01-31")
 
     # ===== SL Dialogues
-    # githubReleaseSLD(g, "2021-05-31")
+    githubReleaseSLD(g, "2022-01-31")
 
     # ===== Sisterhood of Dibella
-    # githubReleaseSLSD(g, "2021-02-28")
+    githubReleaseSLSD(g, "2022-01-31")
 
     # ===== Alicia
     # githubReleaseAlicia(g, "2021-05-31")
 
     # ===== Hormones
-    githubReleaseHormones(g, "2021-05-31")
+    githubReleaseHormones(g, "2022-01-31")
 
     # ===== Parasites
-    githubReleaseParasites(g, "2021-05-31")
+    githubReleaseParasites(g, "2022-01-31")
 
     # ===== Family Ties
-    # githubReleaseFamilyTies(g, "2021-05-31")
+    # githubReleaseFamilyTies(g, "2021-11-30")
     
     # ===== Stories
-    githubReleaseStories(g, "2021-05-31")
+    githubReleaseStories(g, "2022-01-31")
 
     # ===== Obscure Patches
     # githubReleaseCollegeDaysPatch(g, "2021-05-31")
     # githubReleasePuppetMasterPatch(g, "2021-05-31")
-    # githubReleaseSexLabWarmBodiesPatch(g, "2021-05-31")
+    githubReleaseSexLabWarmBodiesPatch(g, "2022-01-31")
     # githubReleaseLoversComfortPatch(g, "2021-05-31")
-
+    # githubReleaseBathingInSkyrimPatch(g, "2021-07-31")
+    githubReleaseImmersionPatch(g, "2022-01-31")
