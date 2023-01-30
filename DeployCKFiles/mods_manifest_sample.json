@@ -5,7 +5,7 @@
             "name": "<Name of game or group of mods. Must be unique.>",
             "mods": [
                 {
-                    "name": "<Name of mod. Must be unique.>",
+                    "name": "<Name of mod or mod part in case of multiple source folders for the same mod. Preferably unique. Leave empty to skip displaying name in case of multipart mod>",
                     "source_folder": "<Source folder of files to deploy.>",
                     "release_folder": "<Folder to deploy files to be zipped into a release. Can be empty to skip.>",
                     "github_folder": "<Folder to deploy to  github repo. Can be empty to skip.>",
