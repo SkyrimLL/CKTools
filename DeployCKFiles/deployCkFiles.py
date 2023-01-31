@@ -27,19 +27,19 @@ from colorama import Style
 
 debug = False
 
-def deployModGroup(mods_data, mod_group_name):
-    deployMods(mods_data, mod_group_name,"all")
+def deploy_mod_group(mods_data, mod_group_name):
+    deploy_mods(mods_data, mod_group_name,"all")
 
 
-def deployMod(mods_data, mod_group_name, mod_name):
-    deployMods(mods_data, mod_group_name, mod_name)
+def deploy_mod(mods_data, mod_group_name, mod_name):
+    deploy_mods(mods_data, mod_group_name, mod_name)
 
 
-def deployAllMods(mods_data):
-    deployMods(mods_data, "all","all")
+def deploy_all_mods(mods_data):
+    deploy_mods(mods_data, "all","all")
 
 
-def deployMods(mods_data, mod_group_name, mod_name):
+def deploy_mods(mods_data, mod_group_name, mod_name):
     mod_group_list = mods_data["mod_groups"]
     mod_group_match = 0
     mod_match = 0
@@ -71,7 +71,7 @@ def deployMods(mods_data, mod_group_name, mod_name):
                     # print(mod_assets)
                     # print(mode)
 
-                    deployfiles([source_folder], [release_folder, github_folder], mod_assets, mode)
+                    deploy_files([source_folder], [release_folder, github_folder], mod_assets, mode)
 
                 elif (this_mod['mode']=="skip"):
                     if not (this_mod['name']==""):
@@ -84,7 +84,7 @@ def deployMods(mods_data, mod_group_name, mod_name):
             print(f"{Fore.YELLOW}:: No mods deployed{Style.RESET_ALL}")
 
 
-def deployfiles(source_list, destination_list, modassets_list, mode):
+def deploy_files(source_list, destination_list, modassets_list, mode):
     for asset in modassets_list:
         filepattern_list = asset["file_patterns"]
 
@@ -93,14 +93,14 @@ def deployfiles(source_list, destination_list, modassets_list, mode):
                 for filepattern in filepattern_list:
                     if not (destination==""):
                         if not debug:
-                            trymakedir(destination)
+                            try_makedir(destination)
 
                     if (not os.path.exists(source + asset["path"])):
                         print(f"{Fore.RED}>> Invalid Source folder: " + source + asset["path"]+ f"{Style.RESET_ALL}")
                     else:
                         if not (destination==""):
                             if not debug:
-                                docopy(source + asset["path"], destination + asset["path"], filepattern, mode)
+                                do_copy(source + asset["path"], destination + asset["path"], filepattern, mode)
                             else:
                                 print("> Source: " + source + asset["path"])
                                 print("> Target: " + destination + asset["path"])
@@ -108,7 +108,7 @@ def deployfiles(source_list, destination_list, modassets_list, mode):
 
 # BUG: This function doesn't copy files if they already exist in the target folder with a different case than the originals
 #      They are just skipped for some reason. Forcing the use of no case didn't help.
-def docopy(inputdir, outputdir, pattern, mode):
+def do_copy(inputdir, outputdir, pattern, mode):
     foundfiles = ""
     regexpattern = fnmatch.translate(pattern)
     prog = re.compile(regexpattern)
@@ -116,7 +116,7 @@ def docopy(inputdir, outputdir, pattern, mode):
     # print("Source: "+ inputdir)
     # print("Target: "+ outputdir)
     if not debug:
-        trymakedir(outputdir)
+        try_makedir(outputdir)
 
     totalfilecount = 0
     for (root, dirs, files) in os.walk(inputdir):
@@ -126,7 +126,7 @@ def docopy(inputdir, outputdir, pattern, mode):
             if m:
                 targetdir = join(outputdir, os.path.relpath(root, inputdir))
                 if not debug:
-                    trymakedir(targetdir)
+                    try_makedir(targetdir)
                 
                 # Exclude some files
                 if (fn != "Thumbs.db") and (not (".vortex_backup" in fn)):
@@ -170,7 +170,7 @@ def join(*args):
     return os.path.normpath(os.path.join(*args))
 
 
-def trymakedir(path):
+def try_makedir(path):
     try:
         os.makedirs(path)
     except Exception as e:
@@ -178,23 +178,36 @@ def trymakedir(path):
         if not os.path.exists(path):
             raise Exception('>>> Failed to create output directory: ' + path)
 
- 
-if __name__ == '__main__':
-    colorama_init()
 
-    with open('mods_manifest.json', 'r') as f:
+def process_manifest(manifestfilename):
+    with open(manifestfilename, 'r') as f:
         mods_data = json.load(f)
 
     # creating set of keys that we want to compare
     root_keys_check = set(["mod_groups"]) 
     
     if root_keys_check.issubset(mods_data.keys()):
-        deployAllMods(mods_data)       
-        # deployMod(mods_data, 'MOD UTILITIES', 'CKTOOLS')
-        # deployModGroup(mods_data, 'MOD UTILITIES')
+        deploy_all_mods(mods_data)       
+        # deploy_mod(mods_data, 'MOD UTILITIES', 'CKTOOLS')
+        # deploy_mod_group(mods_data, 'MOD UTILITIES')
 
     else:
         print(f"{Fore.RED}>>>Error: Key mod_groups is missing from mods_manifest.json file{Style.RESET_ALL}")
+
+    
+if __name__ == '__main__':
+    colorama_init()
+
+    process_manifest('mods_manifest_cktools.json')
+    # processmanifest('mods_manifest_cyberpunk_2077.json')
+    # processmanifest('mods_manifest_the_witcher_3.json')
+    # process_manifest('mods_manifest_skyrim_immersion_patch.json')
+    process_manifest('mods_manifest_skyrim_warm_bodies.json')
+    process_manifest('mods_manifest_skyrim_small_patches.json')
+    # processmanifest('mods_manifest_skyrim_parasites.json')
+    # processmanifest('mods_manifest_skyrim_hormones.json')
+
+
             
 
 
