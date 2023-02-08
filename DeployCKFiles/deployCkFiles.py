@@ -65,7 +65,7 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
                     mod_assets = this_mod["assets"] 
                     mode = this_mod["mode"]
 
-                    # print(source_folder)
+                    print("Source: " + source_folder)
                     # print(release_folder)
                     # print(github_folder)
                     # print(mod_assets)
@@ -89,6 +89,7 @@ def deploy_files(source_list, destination_list, modassets_list, mode):
         filepattern_list = asset["file_patterns"]
 
         for source in source_list:
+
             for destination in destination_list:
                 for filepattern in filepattern_list:
                     if not (destination==""):
@@ -99,10 +100,11 @@ def deploy_files(source_list, destination_list, modassets_list, mode):
                         print(f"{Fore.RED}>> Invalid Source folder: " + source + asset["path"]+ f"{Style.RESET_ALL}")
                     else:
                         if not (destination==""):
+                            # print("Source: " + source + asset["path"])
                             if not debug:
                                 do_copy(source + asset["path"], destination + asset["path"], filepattern, mode)
                             else:
-                                print("> Source: " + source + asset["path"])
+                                # print("> Source: " + source + asset["path"])
                                 print("> Target: " + destination + asset["path"])
                                 print("> Pattern: " + filepattern)
 
@@ -113,13 +115,14 @@ def do_copy(inputdir, outputdir, pattern, mode):
     regexpattern = fnmatch.translate(pattern)
     prog = re.compile(regexpattern)
 
-    # print("Source: "+ inputdir)
+    # print("Source: " + inputdir)
     # print("Target: "+ outputdir)
     if not debug:
         try_makedir(outputdir)
 
     totalfilecount = 0
     for (root, dirs, files) in os.walk(inputdir):
+
         filecount = 0 
         for fn in files:
             m = prog.match(fn)
@@ -130,27 +133,28 @@ def do_copy(inputdir, outputdir, pattern, mode):
                 
                 # Exclude some files
                 if (fn != "Thumbs.db") and (not (".vortex_backup" in fn)):
+                    reltargetdir = join(os.path.relpath(root, inputdir), fn)
                     # If file is newer, or if filesize is different in case os .esp (because of load order)
                     copyfileflag = False
                     # print("Looking for: "+ join(root, fn))
                     # print(":: into    : "+ join(targetdir, fn))
  
                     if (not os.path.exists(join(targetdir, fn))):
-                        foundfiles = foundfiles + "\n" + "Found new file " + join(targetdir, fn)
+                        foundfiles = foundfiles + "\n" + "      Found new file: " + reltargetdir  # join(targetdir, fn)
                         copyfileflag = True
                     elif (os.path.exists(join(root, fn)) and os.path.exists(join(targetdir, fn))):
                         if (os.path.getmtime(join(root, fn)) > os.path.getmtime(join(targetdir, fn))):
                             # Copy newer files - updated recently
-                            foundfiles = foundfiles + "\n" + "Updating newer file " + join(targetdir, fn)
+                            foundfiles = foundfiles + "\n" + "      Updating newer file: " + reltargetdir  # join(targetdir, fn)
                             copyfileflag = True
                         elif (not filecmp.cmp(join(root, fn), join(targetdir, fn))):
                             # Copy new or missing files
-                            foundfiles = foundfiles + "\n" + "Updating different file " + join(targetdir, fn)
+                            foundfiles = foundfiles + "\n" + "      Updating different file: " + reltargetdir  # join(targetdir, fn)
                             copyfileflag = True
                         # elif (".esp" in fn) or (".esm" in fn):
                            # Force copy of esp and esm files (because of timestamps used for load order)
                            # foundfiles = foundfiles + "\n" + "Updating file " + join(targetdir, fn)
-                           # copyfileflag = True
+                           # copyfileflag = True 
 
                     if (copyfileflag):
                         if not debug:
@@ -162,8 +166,8 @@ def do_copy(inputdir, outputdir, pattern, mode):
                         filecount = filecount + 1
         totalfilecount = totalfilecount + filecount
         if filecount != 0: 
-            print("Processing... " + pattern + " To: " + outputdir + foundfiles)
-            print("     " + str(filecount) + " files in " + root)
+            print("      Processing... " + pattern + " To: " + outputdir + foundfiles)
+            print("     " + str(filecount) + " files" )
 
 
 def join(*args):
@@ -199,13 +203,18 @@ if __name__ == '__main__':
     colorama_init()
 
     process_manifest('mods_manifest_cktools.json')
-    # processmanifest('mods_manifest_cyberpunk_2077.json')
-    # processmanifest('mods_manifest_the_witcher_3.json')
-    # process_manifest('mods_manifest_skyrim_immersion_patch.json')
+    
+    process_manifest('mods_manifest_cyberpunk_2077.json')
+
+    # process_manifest('mods_manifest_the_witcher_3.json')
+
+    process_manifest('mods_manifest_skyrim_mind_control.json')
+    process_manifest('mods_manifest_skyrim_immersion_patch.json')
     process_manifest('mods_manifest_skyrim_warm_bodies.json')
     process_manifest('mods_manifest_skyrim_small_patches.json')
-    # processmanifest('mods_manifest_skyrim_parasites.json')
-    # processmanifest('mods_manifest_skyrim_hormones.json')
+    process_manifest('mods_manifest_skyrim_parasites.json')
+    process_manifest('mods_manifest_skyrim_hormones.json')
+    process_manifest('mods_manifest_skyrim_family_ties.json')
 
 
             
