@@ -4,6 +4,10 @@
 # https://pygithub.readthedocs.io/en/latest/introduction.html
 # https://pygithub.readthedocs.io/en/latest/reference.html
 # https://hackernoon.com/4-ways-to-manage-the-configuration-in-python-4623049e841b
+# https://docs.github.com/rest
+
+# To refresh token:
+# https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
 # REQUIREMENTS
 # This script requires the PyGithub library in your python environment - https://pygithub.readthedocs.io/en/latest/index.html
@@ -17,8 +21,12 @@
 import json
 import os
 from github import Github
+from colorama import init as colorama_init
+from colorama import Fore
+from colorama import Style
 
-def trymakedir(path):
+
+def try_makedir(path):
     try:
         os.makedirs(path)
     except Exception as e:
@@ -27,171 +35,98 @@ def trymakedir(path):
             raise Exception('failed to create output directory: ' + path)
 
 
-def githubrelease(githubapi, githubaccount, githubrepo, githubmilestone, githubfolder):
-    repo = githubapi.get_repo(githubaccount + '/' + githubrepo)
+def get_github_release(_github_api, _github_account, _github_repo, _github_milestone, _github_folder):
+    repo = _github_api.get_repo(_github_account + '/' + _github_repo)
     closed_issues = repo.get_issues(state='closed')
-    enhancementlist = ""
-    bugslist = ""
-    milestonenumber = 0
+    enhancement_list = ""
+    bugs_list = ""
+    milestone_number = 0
     for issue in closed_issues:
         milestone = issue.milestone
         # if milestone.title == 'SD 2019':
         if milestone is not None:
-            if milestone.title == githubmilestone:
-                milestonenumber = milestone.number
-                issuenumber = issue.number
+            if milestone.title == _github_milestone:
+                milestone_number = milestone.number
+                issue_number = issue.number
                 for label in issue.labels:
-                    issuelink = "- [" + issue.title + "](https://github.com/" + githubaccount + "/" + githubrepo + "/issues/" + str(issuenumber) + ")\n"
+                    issue_link = "- [" + issue.title + "](https://github.com/" + _github_account + "/" + _github_repo + "/issues/" + str(issue_number) + ")\n"
                     if label.name == 'enhancement':
-                        enhancementlist = enhancementlist + issuelink
+                        enhancement_list = enhancement_list + issue_link
                     elif label.name == 'bug':
-                        bugslist = bugslist + issuelink
-    if milestonenumber != 0:
-        releasenotes = ""
-        releasenotes = releasenotes + "### RELEASE NOTES for milestone [" + githubmilestone + "](https://github.com/" + githubaccount + "/" + githubrepo + "/milestone/" + str(milestonenumber) + "?closed=1) \n"
-        releasenotes = releasenotes + "**Enhancements:** \n" + enhancementlist + "\n"
-        releasenotes = releasenotes + "**Bug Fixes:** \n" + bugslist + "\n"
+                        bugs_list = bugs_list + issue_link
+    if milestone_number != 0:
+        release_notes = ""
+        release_notes = release_notes + "### RELEASE NOTES for milestone [" + _github_milestone + "](https://github.com/" + _github_account + "/" + _github_repo + "/milestone/" + str(milestone_number) + "?closed=1) \n"
+        release_notes = release_notes + "**Enhancements:** \n" + enhancement_list + "\n"
+        release_notes = release_notes + "**Bug Fixes:** \n" + bugs_list + "\n"
 
-        targetfolder = githubfolder + "Releases"
-        targetfile = targetfolder + "\\" + githubmilestone + '.md'
-        trymakedir(targetfolder)
-        file = open(targetfile,'w')
-        file.write(releasenotes)
+        target_folder = _github_folder + "Releases"
+        target_file = target_folder + "\\" + _github_milestone + '.md'
+        print("     Release notes: " + target_file)
+        try_makedir(target_folder)
+        file = open(target_file,'w')
+        file.write(release_notes)
         file.close()
-        print(targetfile)
+        print(target_file)
 
 
-def githubReleaseCKTools(githubapi, releasedate):
-    print("========= CKTools")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\CKTools\\"
-    githubrelease(githubapi, 'SkyrimLL', 'CKTools', 'CKTools ' + releasedate, githubfolder)
+def process_release(_github_api, _github_account, _github_root_folder, _github_repo, _mod_path, _mod_name, _release_date):
+    github_milestone = _mod_name + " " + _release_date
+    github_folder = _github_root_folder + _github_repo + "\\"
 
+    if (_mod_path != ''):
+        github_folder = github_folder + _mod_path
 
-def githubReleaseSD(githubapi, releasedate):
-    print("========= Sanguine Debauchery")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SanguineDebauchery\\"
-    # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SD ' + releasedate, githubfolder)
+    github_folder = github_folder + _mod_name + "\\"
+ 
+    print(f"{Fore.BLUE}========= " + _mod_name + " " + _release_date + f"{Style.RESET_ALL}")
+    print("     Local files: " + github_folder)
+    print("     GitHub repo: " + _github_repo)
 
-
-def githubReleaseSLD(githubapi, releasedate):
-    print("========= SL Dialogues")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SDPlus\\SexLab_Dialogues\\"
-    # githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD 2019',githubfolder)
-    githubrelease(githubapi, 'SkyrimLL', 'SDPlus', 'SLD ' + releasedate, githubfolder)
-
-
-def githubReleaseSLSD(githubapi, releasedate):
-    print("========= Sisterhood of Dibella")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\SisterhoodOfDibella\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Sisterhood ' + releasedate, githubfolder)
-
-
-def githubReleaseAlicia(githubapi, releasedate):
-    print("========= Alicia")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Alicia\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Alicia ' + releasedate, githubfolder)
-
-
-def githubReleaseHormones(githubapi, releasedate):
-    print("========= Hormones")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Hormones\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Hormones ' + releasedate, githubfolder)
-
-
-def githubReleaseParasites(githubapi, releasedate):
-    print("========= Parasites")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Parasites\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Parasites ' + releasedate, githubfolder)
-
-
-def githubReleaseFamilyTies(githubapi, releasedate):
-    print("========= Family Ties")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\FamilyTies\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Family Ties ' + releasedate, githubfolder)
-
-
-def githubReleaseStories(githubapi, releasedate):
-    print("========= Stories")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLmods\\Stories\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLmods', 'Stories ' + releasedate, githubfolder)
-
-
-def githubReleaseCollegeDaysPatch(githubapi, releasedate):
-    print("========= Obscure Patches - College Days")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\CollegeDaysPatch\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'College Days of Winterhold ' + releasedate, githubfolder)
-
-
-def githubReleasePuppetMasterPatch(githubapi, releasedate):
-    print("========= Obscure Patches - Puppet Master")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\PuppetMasterPatch\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Puppet Master ' + releasedate, githubfolder)
-
-
-def githubReleaseSexLabWarmBodiesPatch(githubapi, releasedate):
-    print("========= Obscure Patches - SexLab Warm Bodies")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SexLabWarmBodiesPatch\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Warm Bodies ' + releasedate, githubfolder)
-
-
-def githubReleaseLoversComfortPatch(githubapi, releasedate):
-    print("========= Obscure Patches - Lovers Comfort Bodies")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\LoversComfortPatch\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Lovers Comfort ' + releasedate, githubfolder)
-
-
-def githubReleaseBathingInSkyrimPatch(githubapi, releasedate):
-    print("========= Obscure Patches - Bathing in Skyrim")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\BathingInSkyrim\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Bathing In Skyrim ' + releasedate, githubfolder)
-
-
-def githubReleaseImmersionPatch(githubapi, releasedate):
-    print("========= Skyrim Immersion Patch")
-    githubfolder = "G:\\Games-data\\custom mods\\03 - Github\\SkyrimLL\\SkLLpatches\\SkyrimImmersionPatch\\"
-    githubrelease(githubapi, 'SkyrimLL', 'SkLLpatches', 'Skyrim Immersion Patch ' + releasedate, githubfolder)
-
+    get_github_release(_github_api, _github_account, _github_repo, github_milestone, github_folder)
 
 
 if __name__ == '__main__':
+    colorama_init()
 
     with open('config.json', 'r') as f:
         config = json.load(f)
 
-    g = Github(base_url="https://api.github.com", login_or_token=config['ACCESS_KEY'])
+    github_api = Github(base_url="https://api.github.com", login_or_token=config['ACCESS_KEY'])
 
-    # ===== CK Tools
-    # githubReleaseCKTools(g, "2021-06-30")
+    github_account = 'SkyrimLL'
+    github_root_folder = "G:\\Games-data\\CustomMods\\_Github\\SkyrimLL\\"
 
-    # ===== Sanguine Debauchery +
-    githubReleaseSD(g, "2022-01-31")
-
-    # ===== SL Dialogues
-    githubReleaseSLD(g, "2022-01-31")
-
-    # ===== Sisterhood of Dibella
-    githubReleaseSLSD(g, "2022-01-31")
-
-    # ===== Alicia
-    # githubReleaseAlicia(g, "2021-05-31")
-
-    # ===== Hormones
-    githubReleaseHormones(g, "2022-01-31")
-
-    # ===== Parasites
-    githubReleaseParasites(g, "2022-01-31")
-
-    # ===== Family Ties
-    # githubReleaseFamilyTies(g, "2021-11-30")
+    release_date = '2023-02-26'
+ 
+    process_release(github_api, github_account, github_root_folder, 'CKTools', '', 'DeployCKFiles', release_date)
+    process_release(github_api, github_account, github_root_folder, 'CKTools', '', 'GetGithubReleases', release_date)
     
-    # ===== Stories
-    githubReleaseStories(g, "2022-01-31")
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'Parasites', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'Parasites', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'Hormones', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'Hormones', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SisterhoodOfDibella', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SisterhoodOfDibella', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SexLabDialogues', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SexLabDialogues', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SanguineDebauchery', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SanguineDebauchery', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SkyrimImmersionPatch', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SkyrimImmersionPatch', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SexLabWarmBodies', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SexLabWarmBodies', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'SexLabMindControl', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'SexLabMindControl', release_date)
+    
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'LE\\', 'FamilyTies', release_date)
+    process_release(github_api, github_account, github_root_folder, 'Skyrim', 'SE\\', 'FamilyTies', release_date)
 
-    # ===== Obscure Patches
-    # githubReleaseCollegeDaysPatch(g, "2021-05-31")
-    # githubReleasePuppetMasterPatch(g, "2021-05-31")
-    githubReleaseSexLabWarmBodiesPatch(g, "2022-01-31")
-    # githubReleaseLoversComfortPatch(g, "2021-05-31")
-    # githubReleaseBathingInSkyrimPatch(g, "2021-07-31")
-    githubReleaseImmersionPatch(g, "2022-01-31")
+
