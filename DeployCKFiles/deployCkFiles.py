@@ -204,20 +204,29 @@ if __name__ == '__main__':
 
     process_manifest('mods_manifest_cktools.json')
 
+    # process_manifest('mods_manifest_stable_diffusion.json')
+
     # process_manifest('mods_manifest_the_witcher_3.json')
     
-    # process_manifest('mods_manifest_cyberpunk_2077.json')
+    process_manifest('mods_manifest_cyberpunk_2077.json')
+    process_manifest('mods_manifest_cyberpunk_2077_bimboworld.json')
 
-    process_manifest('mods_manifest_skyrim_mind_control.json')
-    process_manifest('mods_manifest_skyrim_immersion_patch.json')
-    process_manifest('mods_manifest_skyrim_warm_bodies.json')
-    process_manifest('mods_manifest_skyrim_parasites.json')
-    process_manifest('mods_manifest_skyrim_hormones.json')
-    process_manifest('mods_manifest_skyrim_family_ties.json')
-    process_manifest('mods_manifest_skyrim_small_patches.json')
-    process_manifest('mods_manifest_skyrim_sisterhood.json')
-    process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
-    process_manifest('mods_manifest_skyrim_dialogues.json')
+    # process_manifest('mods_manifest_skyrim_small_patches_le.json')
+    # process_manifest('mods_manifest_skyrim_small_patches_se.json')
+    # process_manifest('mods_manifest_skyrim_mind_control.json')
+    # process_manifest('mods_manifest_skyrim_puppet_master.json')
+    # process_manifest('mods_manifest_skyrim_immersion_patch.json')
+    # process_manifest('mods_manifest_skyrim_warm_bodies.json')
+    # process_manifest('mods_manifest_skyrim_parasites.json')
+    # process_manifest('mods_manifest_skyrim_hormones.json')
+    # process_manifest('mods_manifest_skyrim_family_ties.json')
+    # process_manifest('mods_manifest_skyrim_sisterhood.json')
+    # process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
+    # process_manifest('mods_manifest_skyrim_dialogues.json')
+    # process_manifest('mods_manifest_skyrim_alicia.json')
+    # process_manifest('mods_manifest_skyrim_stories.json')
+
+    # process_manifest('mods_manifest_skyrim_ENBreshade.json')
 
 
             
