@@ -24,6 +24,9 @@ import json
 from colorama import init as colorama_init
 from colorama import Fore
 from colorama import Style
+import py7zr
+from datetime import datetime
+from datetime import date
 
 debug = False
 
@@ -43,6 +46,7 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
     mod_group_list = mods_data["mod_groups"]
     mod_group_match = 0
     mod_match = 0
+    filesfound = 0
 
     for this_mod_group in mod_group_list:  
         # print(this_mod_group)
@@ -52,12 +56,13 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
 
             for this_mod in this_mod_group['mods']:  
                 # print(this_mod)
+                if (this_mod['name']==""):
+                    this_mod['name']="Default Mod"
 
                 if ((mod_name=="all") or (mod_name==this_mod['name'])) and not (this_mod['mode']=="skip"):
                     mod_match += 1
 
-                    if not (this_mod['name']==""):
-                        print(f"{Fore.BLUE}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f"{Style.RESET_ALL}")
+                    print(f"{Fore.BLUE}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f"{Style.RESET_ALL}")
 
                     source_folder = this_mod["source_folder"]
                     release_folder = this_mod["release_folder"]
@@ -71,11 +76,30 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
                     # print(mod_assets)
                     # print(mode)
 
-                    deploy_files([source_folder], [release_folder, github_folder], mod_assets, mode)
+                    filesfound = deploy_files([source_folder], [release_folder, github_folder], mod_assets, mode)
+                    # print("Files found: " + str(filesfound))
+
+                    if ('archive_target' in this_mod):
+                        try_makedir(this_mod['archive_target'])
+
+                    if ('archive_folder' in this_mod) and (filesfound>0):
+                        archive_name = this_mod['name'].replace(" ", "").replace("(", "").replace(")", "")
+                        archive_name = archive_name + datetime.today().strftime('%Y%m%d') + ".7z"
+                        if ('archive_target' in this_mod):
+                            archive_file = join(this_mod['archive_target'],archive_name)
+                        else:
+                            archive_file = join(this_mod['archive_folder'],archive_name)
+
+                        print("7zip: " + join(this_mod['archive_folder'],archive_name))
+
+                        try_makedir(this_mod['archive_folder'])
+
+                        with py7zr.SevenZipFile(archive_file, 'w') as archive:
+                            archive.writeall(this_mod['archive_folder'],"")
+
 
                 elif (this_mod['mode']=="skip"):
-                    if not (this_mod['name']==""):
-                        print(f"{Fore.YELLOW}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f" -- SKIPPED {Style.RESET_ALL}")
+                    print(f"{Fore.YELLOW}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f" -- SKIPPED {Style.RESET_ALL}")
 
     if (mod_group_match == 0):
             print(f"{Fore.YELLOW}:: No mod group deployed{Style.RESET_ALL}")
@@ -85,6 +109,8 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
 
 
 def deploy_files(source_list, destination_list, modassets_list, mode):
+    foundfiles = 0
+    totalfilecount = 0
     for asset in modassets_list:
         filepattern_list = asset["file_patterns"]
 
@@ -102,11 +128,14 @@ def deploy_files(source_list, destination_list, modassets_list, mode):
                         if not (destination==""):
                             # print("Source: " + source + asset["path"])
                             if not debug:
-                                do_copy(source + asset["path"], destination + asset["path"], filepattern, mode)
+                                foundfiles = do_copy(source + asset["path"], destination + asset["path"], filepattern, mode)
+                                totalfilecount +=  foundfiles
                             else:
                                 # print("> Source: " + source + asset["path"])
                                 print("> Target: " + destination + asset["path"])
                                 print("> Pattern: " + filepattern)
+    
+    return totalfilecount
 
 # BUG: This function doesn't copy files if they already exist in the target folder with a different case than the originals
 #      They are just skipped for some reason. Forcing the use of no case didn't help.
@@ -169,6 +198,8 @@ def do_copy(inputdir, outputdir, pattern, mode):
             print("      Processing... " + pattern + " To: " + outputdir + foundfiles)
             print("     " + str(filecount) + " files" )
 
+    return totalfilecount
+
 
 def join(*args):
     return os.path.normpath(os.path.join(*args))
@@ -204,7 +235,7 @@ if __name__ == '__main__':
 
     process_manifest('mods_manifest_cktools.json')
 
-    # process_manifest('mods_manifest_stable_diffusion.json')
+    process_manifest('mods_manifest_stable_diffusion.json')
 
     # process_manifest('mods_manifest_the_witcher_3.json')
     
