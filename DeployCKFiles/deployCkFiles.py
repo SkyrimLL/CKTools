@@ -18,6 +18,7 @@ import re
 import os
 import os.path
 import shutil
+import glob
 import fnmatch
 import filecmp
 import json
@@ -29,6 +30,7 @@ from datetime import datetime
 from datetime import date
 
 debug = False
+force_archive = False
 
 def deploy_mod_group(mods_data, mod_group_name):
     deploy_mods(mods_data, mod_group_name,"all")
@@ -83,20 +85,30 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
                         try_makedir(this_mod['archive_target'])
 
                     if ('archive_folder' in this_mod) and (filesfound>0):
-                        archive_name = this_mod['name'].replace(" ", "").replace("(", "").replace(")", "")
-                        archive_name = archive_name + datetime.today().strftime('%Y%m%d') + ".7z"
-                        if ('archive_target' in this_mod):
-                            archive_file = join(this_mod['archive_target'],archive_name)
-                        else:
-                            archive_file = join(this_mod['archive_folder'],archive_name)
+                        if (force_archive==True) or ((force_archive==False) and (filesfound>0)):
+                            base_archive_name = this_mod['name'].replace(" ", "").replace("(", "").replace(")", "").replace("-", "")
+                            archive_name = base_archive_name + datetime.today().strftime('%Y%m%d') + ".7z"
+                            if ('archive_target' in this_mod):
+                                archive_file = join(this_mod['archive_target'],archive_name)
+                            else:
+                                archive_file = join(this_mod['archive_folder'],archive_name)
 
-                        print("7zip: " + join(this_mod['archive_folder'],archive_name))
+                            print("7zip: " + join(this_mod['archive_folder'],archive_name))
 
-                        try_makedir(this_mod['archive_folder'])
+                            try_makedir(this_mod['archive_folder'])
 
-                        with py7zr.SevenZipFile(archive_file, 'w') as archive:
-                            archive.writeall(this_mod['archive_folder'],"")
+                            if ('archive_target' in this_mod):
+                                print("Cleaning: " + this_mod['archive_target']+"\\"+base_archive_name + "*.7z")
 
+                                for this_file in glob.glob(this_mod['archive_target']+"\\"+base_archive_name + "*.7z"):
+                                    print("Moving: " +this_file)
+                                    file_name = os.path.basename(this_file)
+                                    if os.path.exists(this_mod['archive_target']+"\\_old\\"+file_name):
+                                        os.remove(this_mod['archive_target']+"\\_old\\"+file_name)
+                                    shutil.move(this_file,this_mod['archive_target']+"\\_old")
+
+                            with py7zr.SevenZipFile(archive_file, 'w') as archive:
+                                archive.writeall(this_mod['archive_folder'],"")
 
                 elif (this_mod['mode']=="skip"):
                     print(f"{Fore.YELLOW}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f" -- SKIPPED {Style.RESET_ALL}")
@@ -237,27 +249,28 @@ if __name__ == '__main__':
 
     process_manifest('mods_manifest_stable_diffusion.json')
 
-    # process_manifest('mods_manifest_the_witcher_3.json')
+    process_manifest('mods_manifest_the_witcher_3.json')
     
     process_manifest('mods_manifest_cyberpunk_2077.json')
     process_manifest('mods_manifest_cyberpunk_2077_bimboworld.json')
 
-    # process_manifest('mods_manifest_skyrim_small_patches_le.json')
-    # process_manifest('mods_manifest_skyrim_small_patches_se.json')
-    # process_manifest('mods_manifest_skyrim_mind_control.json')
-    # process_manifest('mods_manifest_skyrim_puppet_master.json')
-    # process_manifest('mods_manifest_skyrim_immersion_patch.json')
-    # process_manifest('mods_manifest_skyrim_warm_bodies.json')
-    # process_manifest('mods_manifest_skyrim_parasites.json')
-    # process_manifest('mods_manifest_skyrim_hormones.json')
-    # process_manifest('mods_manifest_skyrim_family_ties.json')
-    # process_manifest('mods_manifest_skyrim_sisterhood.json')
-    # process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
-    # process_manifest('mods_manifest_skyrim_dialogues.json')
-    # process_manifest('mods_manifest_skyrim_alicia.json')
-    # process_manifest('mods_manifest_skyrim_stories.json')
+    process_manifest('mods_manifest_skyrim_small_patches_le.json')
+    process_manifest('mods_manifest_skyrim_small_patches_se.json')
+    
+    process_manifest('mods_manifest_skyrim_mind_control.json')
+    process_manifest('mods_manifest_skyrim_puppet_master.json')
+    process_manifest('mods_manifest_skyrim_immersion_patch.json')
+    process_manifest('mods_manifest_skyrim_warm_bodies.json')
+    process_manifest('mods_manifest_skyrim_family_ties.json')
+    process_manifest('mods_manifest_skyrim_parasites.json')
+    process_manifest('mods_manifest_skyrim_hormones.json')
+    process_manifest('mods_manifest_skyrim_sisterhood.json')
+    process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
+    process_manifest('mods_manifest_skyrim_dialogues.json')
+    process_manifest('mods_manifest_skyrim_alicia.json')
+    process_manifest('mods_manifest_skyrim_stories.json')
 
-    # process_manifest('mods_manifest_skyrim_ENBreshade.json')
+    process_manifest('mods_manifest_skyrim_ENBreshade.json')
 
 
             
