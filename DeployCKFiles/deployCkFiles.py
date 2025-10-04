@@ -98,11 +98,11 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
                             try_makedir(this_mod['archive_folder'])
 
                             if ('archive_target' in this_mod):
-                                print("Cleaning: " + this_mod['archive_target']+"\\"+base_archive_name + "*.7z")
+                                print("Cleaning: " + this_mod['archive_target']+"\\"+base_archive_name + "20*.7z")
 
                                 try_makedir(this_mod['archive_target']+"\\_old\\")
 
-                                for this_file in glob.glob(this_mod['archive_target']+"\\"+base_archive_name + "*.7z"):
+                                for this_file in glob.glob(this_mod['archive_target']+"\\"+base_archive_name + "20*.7z"):
                                     print("Moving: " +this_file)
                                     file_name = os.path.basename(this_file)
                                     if os.path.exists(this_mod['archive_target']+"\\_old\\"+file_name):
@@ -243,37 +243,48 @@ def process_manifest(manifestfilename):
     else:
         print(f"{Fore.RED}>>>Error: Key mod_groups is missing from mods_manifest.json file{Style.RESET_ALL}")
 
+def process_genai_mods():
+    process_manifest('mods_manifest_stable_diffusion.json')
+
+def process_witcher3_mods():
+    process_manifest('mods_manifest_the_witcher_3.json')
+
+def process_cyberpunk_mods():
+    process_manifest('mods_manifest_cyberpunk_2077.json')
+    process_manifest('mods_manifest_cyberpunk_2077_small_patches.json')
+    process_manifest('mods_manifest_cyberpunk_2077_bimboworld.json')
+
+def process_skyrim_mods():
+    process_manifest('mods_manifest_skyrim_small_patches_le.json')
+    process_manifest('mods_manifest_skyrim_small_patches_se.json')
+    
+    process_manifest('mods_manifest_skyrim_mind_control.json')
+    process_manifest('mods_manifest_skyrim_puppet_master.json')
+    process_manifest('mods_manifest_skyrim_immersion_patch.json')
+    process_manifest('mods_manifest_skyrim_warm_bodies.json')
+    process_manifest('mods_manifest_skyrim_family_ties.json')
+    process_manifest('mods_manifest_skyrim_parasites.json')
+    process_manifest('mods_manifest_skyrim_hormones.json')
+    process_manifest('mods_manifest_skyrim_sisterhood.json')
+    process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
+    process_manifest('mods_manifest_skyrim_dialogues.json')
+    process_manifest('mods_manifest_skyrim_alicia.json')
+    process_manifest('mods_manifest_skyrim_stories.json')
+
+    process_manifest('mods_manifest_skyrim_ENBreshade.json')
     
 if __name__ == '__main__':
     colorama_init()
 
     process_manifest('mods_manifest_cktools.json')
 
-    process_manifest('mods_manifest_stable_diffusion.json')
+    process_genai_mods()
 
-    process_manifest('mods_manifest_the_witcher_3.json')
+    # process_witcher3_mods()
     
-    process_manifest('mods_manifest_cyberpunk_2077.json')
-    # process_manifest('mods_manifest_cyberpunk_2077_small_patches.json')
-    # process_manifest('mods_manifest_cyberpunk_2077_bimboworld.json')
+    process_cyberpunk_mods()
 
-    # process_manifest('mods_manifest_skyrim_small_patches_le.json')
-    # process_manifest('mods_manifest_skyrim_small_patches_se.json')
-    
-    # process_manifest('mods_manifest_skyrim_mind_control.json')
-    # process_manifest('mods_manifest_skyrim_puppet_master.json')
-    # process_manifest('mods_manifest_skyrim_immersion_patch.json')
-    # process_manifest('mods_manifest_skyrim_warm_bodies.json')
-    # process_manifest('mods_manifest_skyrim_family_ties.json')
-    # process_manifest('mods_manifest_skyrim_parasites.json')
-    # process_manifest('mods_manifest_skyrim_hormones.json')
-    # process_manifest('mods_manifest_skyrim_sisterhood.json')
-    # process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
-    # process_manifest('mods_manifest_skyrim_dialogues.json')
-    # process_manifest('mods_manifest_skyrim_alicia.json')
-    # process_manifest('mods_manifest_skyrim_stories.json')
-
-    # process_manifest('mods_manifest_skyrim_ENBreshade.json')
+    # process_skyrim_mods()
 
 
             

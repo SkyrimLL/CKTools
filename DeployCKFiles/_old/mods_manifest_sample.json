@@ -1,0 +1,41 @@
+
+{ 
+    "mod_groups": [
+        {
+            "name": "<Name of game or group of mods. Must be unique.>",
+            "mods": [
+                {
+                    "name": "<Name of mod or mod part in case of multiple source folders for the same mod. Preferably unique. Leave empty to skip displaying name in case of multipart mod>",
+                    "source_folder": "<Source folder of files to deploy.>",
+                    "release_folder": "<Folder to deploy files to be zipped into a release. Can be empty to skip.>",
+                    "github_folder": "<Folder to deploy to  github repo. Can be empty to skip.>",
+                    "archive_folder": "<Optional - Folder to copy a zip file of the release files>",
+                    "archive_target": "<Optional - Folder to copy the archive to. Defaults to archive_folder if missing.>",
+                    "mode": "<Can be: update (to deploy new and edited files), skip (to skip deployment - similar to commenting out scanning of the folders)>",
+                    "assets":[
+                            {   "path": "<Subfolder under source_folder. Can be a path to a sub-folder or empty to look at files inside source folder only.>", 
+                                "file_patterns": ["<Comma separated list of strings, in double quotes, with file name or wildcards of files to match for scanning>"] },
+                            {   "path": "<Subfolder under source_folder. Can be a path to a sub-folder or empty to look at files inside source folder only.>", 
+                                "file_patterns": ["<Comma separated list of strings, in double quotes, with file name or wildcards of files to match for scanning>"] }
+                    ]
+                }
+            ]      
+        },
+        {
+            "name": "MOD UTILITIES", 
+            "mods": [
+                {
+                    "name": "CKTOOLS",
+                    "source_folder": "C:\\Temp\\CKTools\\",
+                    "release_folder": "C:\\Temp\\Backup\\CKTools\\",
+                    "github_folder": "C:\\Temp\\Github\\CKTools\\",
+                    "mode": "update",
+                    "assets":[
+                        { "path": "DeployCKFiles\\", "file_patterns": ["deployCkFiles.py","mods_manifest_sample.json"] },
+                        { "path": "GetGithubReleases\\", "file_patterns":["getGithubReleases.py"]}
+                    ]      
+                }
+            ]
+          }
+    ]
+}
