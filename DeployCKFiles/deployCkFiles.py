@@ -7,6 +7,25 @@
 # https://www.pythonforbeginners.com/os/python-the-shutil-module
 # http://xahlee.info/python/python_path_manipulation.html
 
+# TODO:
+# - Move process_genai_mods(), process_witcher3_mods(), process_cyberpunk_mods(),process_skyrim_mods() to config manifest instead of hard coding in main
+# - Add option to skip copying files if they already exist in the target folder (for faster deployment when only a few files have changed)
+# - Add option to only copy files that are newer than the existing files in the target folder (for faster deployment when only a few files have changed)
+# - Add option to only copy files that are different than the existing files in the target folder (for faster deployment when only a few files have changed)
+# - Add option to force copy all files (for clean deployment)
+# - Add option to archive files in the target folder before copying new files (for backup purposes)
+# - Add option to clean old archives in the archive folder (for backup purposes)
+# - Add option to only copy files that match a certain pattern (for selective deployment)
+# - Add option to exclude certain files or folders from copying (for selective deployment)
+# - Add option to log the deployment process (for debugging purposes)
+# - Add option to dry run the deployment process (for testing purposes)
+# - Add option to deploy only specific mod groups or mods (for selective deployment)
+# - Add option to deploy only specific file types (for selective deployment)
+# - Add option to deploy only specific file patterns (for selective deployment)
+# - Add option to deploy only specific file patterns that are newer than the existing files in the target folder (for selective deployment)
+# - Add option to deploy only specific file patterns that are different than the existing files in the target folder (for selective deployment)
+# - Add option to deploy only specific file patterns that are newer or different than the existing files in the target folder (for selective deployment)
+
 """ 
 Check the sample mods_manifest_sample.json file.
 Rename to mods_manifest.json before use.
@@ -109,8 +128,35 @@ def deploy_mods(mods_data, mod_group_name, mod_name):
                                         os.remove(this_mod['archive_target']+"\\_old\\"+file_name)
                                     shutil.move(this_file,this_mod['archive_target']+"\\_old")
 
+                            source_dir = this_mod['archive_folder']
+                            # 1. Get all files in the source directory (recursively, if needed)
+                            all_files = []
+                            for root, dirs, files in os.walk(source_dir):
+                                for file in files:
+                                    full_path = os.path.join(root, file)
+                                    all_files.append(full_path)
+
+                            # 2. Filter the files (e.g., keep only .txt files)
+                            # A list comprehension can be used for concise filtering
+                            filtered_files = [
+                                f for f in all_files
+                                if not f.lower().endswith('.vortex_backup')
+                                and os.path.basename(f) != 'Thumbs.db'
+                                and not os.path.basename(f).startswith('.')
+                                and os.path.basename(f).lower() != 'desktop.ini'
+                                and not f.lower().endswith('.ppj')
+                                and not f.lower().endswith('.code-workspace')
+                                and not any(part == '.vscode' for part in os.path.normpath(f).split(os.sep))
+                            ]
+
+                            # 3. Create the 7z archive and write the filtered files
                             with py7zr.SevenZipFile(archive_file, 'w') as archive:
-                                archive.writeall(this_mod['archive_folder'],"")
+                                for file_path in filtered_files:
+                                    # The second argument to write() sets the name within the archive (optional)
+                                    archive.write(file_path, arcname=os.path.relpath(file_path, source_dir))                            
+
+                            # with py7zr.SevenZipFile(archive_file, 'w') as archive:
+                            #     archive.writeall(this_mod['archive_folder'],"")
 
                 elif (this_mod['mode']=="skip"):
                     print(f"{Fore.YELLOW}========= " + this_mod_group['name'] + " - " + this_mod['name'] + f" -- SKIPPED {Style.RESET_ALL}")
@@ -201,7 +247,8 @@ def do_copy(inputdir, outputdir, pattern, mode):
 
                     if (copyfileflag):
                         if not debug:
-                            shutil.copy(join(root, fn), join(targetdir, fn))
+                            # copy and preserve timespamps and permissions
+                            shutil.copy2(join(root, fn), join(targetdir, fn))
 
                         # Disabled for issues with time
                         # if (".esp" in fn) or (".esm" in fn):
@@ -244,45 +291,44 @@ def process_manifest(manifestfilename):
         print(f"{Fore.RED}>>>Error: Key mod_groups is missing from mods_manifest.json file{Style.RESET_ALL}")
 
 def process_genai_mods():
-    process_manifest('mods_manifest_stable_diffusion.json')
+    process_manifest('data/mods_manifest_stable_diffusion.json')
 
 def process_witcher3_mods():
-    process_manifest('mods_manifest_the_witcher_3.json')
+    process_manifest('data/mods_manifest_the_witcher_3.json')
 
 def process_cyberpunk_mods():
-    process_manifest('mods_manifest_cyberpunk_2077.json')
-    process_manifest('mods_manifest_cyberpunk_2077_small_patches.json')
-    process_manifest('mods_manifest_cyberpunk_2077_bimboworld.json')
+    process_manifest('data/mods_manifest_cyberpunk_2077.json')
+    process_manifest('data/mods_manifest_cyberpunk_2077_small_patches.json')
+    process_manifest('data/mods_manifest_cyberpunk_2077_bimboworld.json')
 
 def process_skyrim_mods():
-    process_manifest('mods_manifest_skyrim_small_patches_le.json')
-    process_manifest('mods_manifest_skyrim_small_patches_se.json')
+    # process_manifest('data/mods_manifest_skyrim_small_patches_le.json')
+    # process_manifest('data/mods_manifest_skyrim_small_patches_se.json')
     
-    process_manifest('mods_manifest_skyrim_mind_control.json')
-    process_manifest('mods_manifest_skyrim_puppet_master.json')
-    process_manifest('mods_manifest_skyrim_immersion_patch.json')
-    process_manifest('mods_manifest_skyrim_warm_bodies.json')
-    process_manifest('mods_manifest_skyrim_family_ties.json')
-    process_manifest('mods_manifest_skyrim_parasites.json')
-    process_manifest('mods_manifest_skyrim_hormones.json')
-    process_manifest('mods_manifest_skyrim_sisterhood.json')
-    process_manifest('mods_manifest_skyrim_sanguine_debauchery.json')
-    process_manifest('mods_manifest_skyrim_dialogues.json')
-    process_manifest('mods_manifest_skyrim_alicia.json')
-    process_manifest('mods_manifest_skyrim_stories.json')
-
-    process_manifest('mods_manifest_skyrim_ENBreshade.json')
+    # process_manifest('data/mods_manifest_skyrim_mind_control.json')
+    # process_manifest('data/mods_manifest_skyrim_puppet_master.json')
+    # process_manifest('data/mods_manifest_skyrim_immersion_patch.json')
+    # process_manifest('data/mods_manifest_skyrim_warm_bodies.json')
+    # process_manifest('data/mods_manifest_skyrim_family_ties.json')
+    process_manifest('data/mods_manifest_skyrim_parasites.json')
+    # process_manifest('data/mods_manifest_skyrim_hormones.json')
+    process_manifest('data/mods_manifest_skyrim_sisterhood.json')
+    process_manifest('data/mods_manifest_skyrim_sanguine_debauchery.json')
+    # process_manifest('data/mods_manifest_skyrim_dialogues.json')
+    # process_manifest('data/mods_manifest_skyrim_alicia.json')
+    # process_manifest('data/mods_manifest_skyrim_stories.json')
+    # process_manifest('data/mods_manifest_skyrim_ENBreshade.json')
     
 if __name__ == '__main__':
     colorama_init()
 
-    process_manifest('mods_manifest_cktools.json')
+    process_manifest('data/mods_manifest_cktools.json')
 
     process_genai_mods()
 
     # process_witcher3_mods()
     
-    process_cyberpunk_mods()
+    # process_cyberpunk_mods()
 
     # process_skyrim_mods()
 
