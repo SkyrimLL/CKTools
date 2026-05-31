@@ -1,0 +1,16 @@
+# DeployCKFiles - Global Configuration
+# manifest_groups: list of mod groups to process
+#   name:      display name for the group
+#   status:    true = process this group, false = skip
+#   manifests: list of JSON manifest files in this group
+#     file:    path to the manifest file (relative to script)
+#     status:  true = process this manifest, false = skip
+
+manifest_groups:
+
+  - name: "Sample Tools"
+    status: true
+    manifests:
+      - file: "data/mods_manifest_sample.json"
+        status: true
+ 

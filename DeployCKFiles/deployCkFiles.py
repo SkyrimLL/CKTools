@@ -8,7 +8,7 @@
 # http://xahlee.info/python/python_path_manipulation.html
 
 # TODO:
-# - Move process_genai_mods(), process_witcher3_mods(), process_cyberpunk_mods(),process_skyrim_mods() to config manifest instead of hard coding in main
+# - [DONE] Move process_genai_mods(), process_witcher3_mods(), process_cyberpunk_mods(),process_skyrim_mods() to config manifest instead of hard coding in main
 # - Add option to skip copying files if they already exist in the target folder (for faster deployment when only a few files have changed)
 # - Add option to only copy files that are newer than the existing files in the target folder (for faster deployment when only a few files have changed)
 # - Add option to only copy files that are different than the existing files in the target folder (for faster deployment when only a few files have changed)
@@ -41,6 +41,7 @@ import glob
 import fnmatch
 import filecmp
 import json
+import yaml
 from colorama import init as colorama_init
 from colorama import Fore
 from colorama import Style
@@ -290,47 +291,24 @@ def process_manifest(manifestfilename):
     else:
         print(f"{Fore.RED}>>>Error: Key mod_groups is missing from mods_manifest.json file{Style.RESET_ALL}")
 
-def process_genai_mods():
-    process_manifest('data/mods_manifest_stable_diffusion.json')
+def process_from_config(config_file='data/config.yaml'):
+    with open(config_file, 'r') as f:
+        config = yaml.safe_load(f)
 
-def process_witcher3_mods():
-    process_manifest('data/mods_manifest_the_witcher_3.json')
+    for group in config.get('manifest_groups', []):
+        if group.get('status', False):
+            print(f"{Fore.CYAN}=== Group: {group['name']}{Style.RESET_ALL}")
+            for manifest in group.get('manifests', []):
+                if manifest.get('status', False):
+                    process_manifest(manifest['file'])
+        else:
+            print(f"{Fore.YELLOW}=== Group: {group['name']} -- SKIPPED{Style.RESET_ALL}")
 
-def process_cyberpunk_mods():
-    process_manifest('data/mods_manifest_cyberpunk_2077.json')
-    process_manifest('data/mods_manifest_cyberpunk_2077_small_patches.json')
-    process_manifest('data/mods_manifest_cyberpunk_2077_bimboworld.json')
-
-def process_skyrim_mods():
-    # process_manifest('data/mods_manifest_skyrim_small_patches_le.json')
-    # process_manifest('data/mods_manifest_skyrim_small_patches_se.json')
-    
-    # process_manifest('data/mods_manifest_skyrim_mind_control.json')
-    # process_manifest('data/mods_manifest_skyrim_puppet_master.json')
-    # process_manifest('data/mods_manifest_skyrim_immersion_patch.json')
-    # process_manifest('data/mods_manifest_skyrim_warm_bodies.json')
-    # process_manifest('data/mods_manifest_skyrim_family_ties.json')
-    process_manifest('data/mods_manifest_skyrim_parasites.json')
-    # process_manifest('data/mods_manifest_skyrim_hormones.json')
-    process_manifest('data/mods_manifest_skyrim_sisterhood.json')
-    process_manifest('data/mods_manifest_skyrim_sanguine_debauchery.json')
-    # process_manifest('data/mods_manifest_skyrim_dialogues.json')
-    # process_manifest('data/mods_manifest_skyrim_alicia.json')
-    # process_manifest('data/mods_manifest_skyrim_stories.json')
-    # process_manifest('data/mods_manifest_skyrim_ENBreshade.json')
     
 if __name__ == '__main__':
     colorama_init()
 
-    process_manifest('data/mods_manifest_cktools.json')
-
-    process_genai_mods()
-
-    # process_witcher3_mods()
-    
-    # process_cyberpunk_mods()
-
-    # process_skyrim_mods()
+    process_from_config('data/config.yaml')
 
 
             
