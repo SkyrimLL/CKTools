@@ -9,6 +9,7 @@
 
 # TODO:
 # - [DONE] Move process_genai_mods(), process_witcher3_mods(), process_cyberpunk_mods(),process_skyrim_mods() to config manifest instead of hard coding in main
+# - Skip creating archive targets if empty in config file
 # - Add option to skip copying files if they already exist in the target folder (for faster deployment when only a few files have changed)
 # - Add option to only copy files that are newer than the existing files in the target folder (for faster deployment when only a few files have changed)
 # - Add option to only copy files that are different than the existing files in the target folder (for faster deployment when only a few files have changed)
